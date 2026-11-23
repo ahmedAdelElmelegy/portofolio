@@ -1,0 +1,28 @@
+================================================================================
+       INFINITYFREE WEB FILE MANAGER UPLOAD & EXTRACTION ORDER
+================================================================================
+
+All zip files below are located in: deploy/zips/
+Each zip is STRICTLY UNDER 8MB to respect InfinityFree's 10MB web upload limit.
+Every zip is packaged relative to htdocs/ (NO wrapper folder).
+
+--------------------------------------------------------------------------------
+UPLOAD & UNZIP SEQUENCE (Inside the 'htdocs' directory):
+--------------------------------------------------------------------------------
+- 00-public-files.zip      ( 6.74 MB) -> Public files & storage media (Upload only if you need to re-upload public files).
+- 01-laravel-core.zip      ( 0.18 MB) -> Laravel Core (app, bootstrap, config, database, routes, resources, storage, .env). MANDATORY!
+- 02-vendor-part1.zip      ( 2.85 MB) -> Composer production vendor packages. MANDATORY!
+- 03-vendor-part2.zip      ( 2.64 MB) -> Composer production vendor packages. MANDATORY!
+- 04-vendor-part3.zip      ( 1.86 MB) -> Composer production vendor packages. MANDATORY!
+
+--------------------------------------------------------------------------------
+INSTRUCTIONS FOR WEB FILE MANAGER:
+--------------------------------------------------------------------------------
+1. Open InfinityFree Control Panel -> File Manager.
+2. Open the 'htdocs' folder.
+3. Upload 01-laravel-core.zip, right click it, and click 'Extract'.
+4. Upload each vendor zip (02-vendor-part1.zip, 03-vendor-part2.zip, etc.) and 'Extract' each.
+5. Delete the zip files after extracting to save hosting disk quota.
+6. Import deploy/database.sql in phpMyAdmin and update database details in htdocs/laravel/.env.
+
+================================================================================
