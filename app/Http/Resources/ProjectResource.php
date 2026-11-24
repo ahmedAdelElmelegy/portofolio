@@ -21,6 +21,10 @@ class ProjectResource extends JsonResource
             'projectImage' => $this->cover_image_url, // Flutter compatibility
             'github_url' => $this->github_url,
             'githupLink' => $this->github_url, // Flutter compatibility
+            'android_url' => $this->android_url,
+            'androidLink' => $this->android_url, // Flutter compatibility
+            'ios_url' => $this->ios_url,
+            'iosLink' => $this->ios_url, // Flutter compatibility
             'app_url' => $this->app_url,
             'applink' => $this->app_url, // Flutter compatibility
             'is_featured' => (bool) $this->is_featured,

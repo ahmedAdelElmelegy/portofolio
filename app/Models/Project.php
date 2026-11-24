@@ -21,6 +21,8 @@ class Project extends Model
         'short_description_ar',
         'cover_image',
         'github_url',
+        'android_url',
+        'ios_url',
         'app_url',
         'is_featured',
         'sort_order',

@@ -76,18 +76,46 @@
             </div>
         </div>
 
-        <!-- Links -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <!-- Project Links (GitHub, Android, iOS, Web Demo) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div>
-                <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">GitHub Repository URL</label>
+                <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-1.5">
+                    <i class="fa-brands fa-github text-slate-600 dark:text-slate-400"></i>
+                    <span>GitHub URL</span>
+                </label>
                 <input type="url" name="github_url" value="{{ old('github_url', $project->github_url) }}" placeholder="https://github.com/..."
-                       class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm focus:border-blue-500 focus:outline-none">
+                       class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-xs sm:text-sm focus:border-blue-500 focus:outline-none">
+                <span class="text-[11px] text-slate-400 mt-1 block">Leave empty to hide GitHub icon</span>
             </div>
 
             <div>
-                <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">Live App / APK Download URL</label>
-                <input type="url" name="app_url" value="{{ old('app_url', $project->app_url) }}" placeholder="https://drive.google.com/..."
-                       class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm focus:border-blue-500 focus:outline-none">
+                <label class="block text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-2 flex items-center gap-1.5">
+                    <i class="fa-brands fa-android"></i>
+                    <span>Android (Play / APK)</span>
+                </label>
+                <input type="url" name="android_url" value="{{ old('android_url', $project->android_url) }}" placeholder="https://play.google.com/..."
+                       class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-xs sm:text-sm focus:border-emerald-500 focus:outline-none">
+                <span class="text-[11px] text-slate-400 mt-1 block">Google Play, APK, or Drive link</span>
+            </div>
+
+            <div>
+                <label class="block text-xs font-bold uppercase tracking-wider text-sky-600 dark:text-sky-400 mb-2 flex items-center gap-1.5">
+                    <i class="fa-brands fa-apple"></i>
+                    <span>iOS (App Store / TestFlight)</span>
+                </label>
+                <input type="url" name="ios_url" value="{{ old('ios_url', $project->ios_url) }}" placeholder="https://apps.apple.com/..."
+                       class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-xs sm:text-sm focus:border-sky-500 focus:outline-none">
+                <span class="text-[11px] text-slate-400 mt-1 block">App Store or TestFlight link</span>
+            </div>
+
+            <div>
+                <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-1.5">
+                    <i class="fa-solid fa-globe text-blue-500"></i>
+                    <span>Web Demo / Live URL</span>
+                </label>
+                <input type="url" name="app_url" value="{{ old('app_url', $project->app_url) }}" placeholder="https://example.com/..."
+                       class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-xs sm:text-sm focus:border-blue-500 focus:outline-none">
+                <span class="text-[11px] text-slate-400 mt-1 block">Optional live demo / landing page</span>
             </div>
         </div>
 

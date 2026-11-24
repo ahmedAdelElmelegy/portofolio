@@ -280,21 +280,40 @@
 
                     <!-- Footer / Links -->
                     <div class="px-8 py-4 bg-slate-50 dark:bg-slate-900/60 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs font-bold">
-                        <div class="flex items-center gap-4">
-                            @if($proj->github_url)
-                                <a href="{{ $proj->github_url }}" target="_blank" class="text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white flex items-center gap-1.5 transition">
+                        <div class="flex items-center gap-2 sm:gap-2.5">
+                            {{-- GitHub Icon & Link (Only shown if github_url is filled) --}}
+                            @if(!empty($proj->github_url))
+                                <a href="{{ $proj->github_url }}" target="_blank" title="{{ __('GitHub Repository') }}"
+                                   class="w-8 h-8 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white flex items-center justify-center transition shadow-sm hover:scale-105">
                                     <i class="fa-brands fa-github text-sm"></i>
-                                    <span>{{ __('GitHub') }}</span>
                                 </a>
                             @endif
-                            @if($proj->app_url)
-                                <a href="{{ $proj->app_url }}" target="_blank" class="text-slate-600 hover:text-amber-600 dark:text-slate-400 dark:hover:text-amber-400 flex items-center gap-1.5 transition">
+
+                            {{-- Android App Link (Only shown if android_url is filled) --}}
+                            @if(!empty($proj->android_url))
+                                <a href="{{ $proj->android_url }}" target="_blank" title="{{ __('Android (Google Play / APK)') }}"
+                                   class="w-8 h-8 rounded-lg bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800/80 text-emerald-600 dark:text-emerald-400 hover:scale-105 flex items-center justify-center transition shadow-sm">
+                                    <i class="fa-brands fa-android text-sm"></i>
+                                </a>
+                            @endif
+
+                            {{-- iOS App Link (Only shown if ios_url is filled) --}}
+                            @if(!empty($proj->ios_url))
+                                <a href="{{ $proj->ios_url }}" target="_blank" title="{{ __('iOS (App Store / TestFlight)') }}"
+                                   class="w-8 h-8 rounded-lg bg-sky-50 dark:bg-sky-950/60 border border-sky-200 dark:border-sky-800/80 text-sky-600 dark:text-sky-400 hover:scale-105 flex items-center justify-center transition shadow-sm">
+                                    <i class="fa-brands fa-apple text-sm"></i>
+                                </a>
+                            @endif
+
+                            {{-- Web Demo / Live Link (Only shown if app_url is filled) --}}
+                            @if(!empty($proj->app_url))
+                                <a href="{{ $proj->app_url }}" target="_blank" title="{{ __('Live Demo') }}"
+                                   class="w-8 h-8 rounded-lg bg-amber-50 dark:bg-amber-950/60 border border-amber-200 dark:border-amber-800/80 text-amber-600 dark:text-amber-400 hover:scale-105 flex items-center justify-center transition shadow-sm">
                                     <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
-                                    <span>{{ __('Demo / APK') }}</span>
                                 </a>
                             @endif
                         </div>
-                        <a href="{{ route('projects.show', $proj->slug) }}" class="text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1">
+                        <a href="{{ route('projects.show', $proj->slug) }}" class="text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1 font-bold">
                             <span>{{ __('Project Details') }}</span>
                             <i class="fa-solid fa-chevron-right rtl:rotate-180 text-[10px]"></i>
                         </a>

@@ -22,6 +22,8 @@ class StoreProjectRequest extends FormRequest
             'short_description_ar' => ['nullable', 'string', 'max:500'],
             'cover_image' => ['nullable', 'image', 'max:4096'],
             'github_url' => ['nullable', 'url', 'max:255'],
+            'android_url' => ['nullable', 'url', 'max:255'],
+            'ios_url' => ['nullable', 'url', 'max:255'],
             'app_url' => ['nullable', 'url', 'max:255'],
             'is_featured' => ['boolean'],
             'sort_order' => ['integer', 'min:0'],

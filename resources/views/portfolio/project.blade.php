@@ -21,18 +21,33 @@
         </div>
         <p class="text-lg text-slate-600 dark:text-slate-300 leading-relaxed max-w-3xl">{{ $project->short_description }}</p>
 
-        <!-- Links -->
-        <div class="flex flex-wrap items-center gap-4 pt-2">
-            @if($project->github_url)
-                <a href="{{ $project->github_url }}" target="_blank" class="px-6 py-2.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-900 dark:hover:bg-slate-850 border border-slate-300 dark:border-slate-800 text-slate-800 dark:text-white font-bold text-xs rounded-xl transition flex items-center gap-2">
+        <!-- Links (GitHub, Android, iOS, Live Demo) -->
+        <div class="flex flex-wrap items-center gap-3 pt-2">
+            @if(!empty($project->github_url))
+                <a href="{{ $project->github_url }}" target="_blank" class="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-900 dark:hover:bg-slate-800 border border-slate-300 dark:border-slate-800 text-slate-800 dark:text-white font-bold text-xs rounded-xl transition flex items-center gap-2 shadow-sm">
                     <i class="fa-brands fa-github text-sm"></i>
                     <span>{{ __('GitHub Repository') }}</span>
                 </a>
             @endif
-            @if($project->app_url)
-                <a href="{{ $project->app_url }}" target="_blank" class="px-6 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs rounded-xl transition flex items-center gap-2 shadow-lg shadow-blue-500/25">
-                    <i class="fa-solid fa-link text-xs"></i>
-                    <span>{{ __('Live App / APK Download') }}</span>
+
+            @if(!empty($project->android_url))
+                <a href="{{ $project->android_url }}" target="_blank" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl transition flex items-center gap-2 shadow-lg shadow-emerald-600/25">
+                    <i class="fa-brands fa-android text-base"></i>
+                    <span>{{ __('Android (Google Play / APK)') }}</span>
+                </a>
+            @endif
+
+            @if(!empty($project->ios_url))
+                <a href="{{ $project->ios_url }}" target="_blank" class="px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-white dark:bg-sky-600 dark:hover:bg-sky-500 font-bold text-xs rounded-xl transition flex items-center gap-2 shadow-lg shadow-sky-600/25">
+                    <i class="fa-brands fa-apple text-base"></i>
+                    <span>{{ __('iOS (App Store / TestFlight)') }}</span>
+                </a>
+            @endif
+
+            @if(!empty($project->app_url))
+                <a href="{{ $project->app_url }}" target="_blank" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs rounded-xl transition flex items-center gap-2 shadow-lg shadow-blue-500/25">
+                    <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                    <span>{{ __('Live Web Demo') }}</span>
                 </a>
             @endif
         </div>

@@ -64,17 +64,29 @@
                 </div>
 
                 <div class="px-6 py-3 bg-slate-50/80 dark:bg-slate-900/60 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs">
-                    <div class="flex items-center gap-3">
+                    <div class="flex items-center gap-2.5">
                         @if($project->github_url)
-                            <a href="{{ $project->github_url }}" target="_blank" class="text-slate-400 hover:text-slate-900 dark:hover:text-white flex items-center gap-1">
+                            <a href="{{ $project->github_url }}" target="_blank" class="text-slate-400 hover:text-slate-900 dark:hover:text-white flex items-center gap-1" title="GitHub">
                                 <i class="fa-brands fa-github"></i>
                                 <span>Code</span>
                             </a>
                         @endif
+                        @if($project->android_url)
+                            <a href="{{ $project->android_url }}" target="_blank" class="text-emerald-500 hover:text-emerald-400 flex items-center gap-1" title="Android App">
+                                <i class="fa-brands fa-android"></i>
+                                <span>Android</span>
+                            </a>
+                        @endif
+                        @if($project->ios_url)
+                            <a href="{{ $project->ios_url }}" target="_blank" class="text-sky-500 hover:text-sky-400 flex items-center gap-1" title="iOS App">
+                                <i class="fa-brands fa-apple"></i>
+                                <span>iOS</span>
+                            </a>
+                        @endif
                         @if($project->app_url)
-                            <a href="{{ $project->app_url }}" target="_blank" class="text-slate-400 hover:text-blue-400 flex items-center gap-1">
+                            <a href="{{ $project->app_url }}" target="_blank" class="text-slate-400 hover:text-blue-400 flex items-center gap-1" title="Live Demo / Web">
                                 <i class="fa-solid fa-link"></i>
-                                <span>Live / Drive</span>
+                                <span>Live</span>
                             </a>
                         @endif
                     </div>

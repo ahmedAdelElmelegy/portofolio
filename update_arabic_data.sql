@@ -37,6 +37,10 @@ SET @col = (SELECT COUNT(*) FROM information_schema.COLUMNS WHERE TABLE_SCHEMA =
 SET @stmt = IF(@col = 0, 'ALTER TABLE `projects` ADD `name_ar` VARCHAR(255) NULL AFTER `name`, ADD `short_description_ar` VARCHAR(500) NULL AFTER `short_description`, ADD `description_ar` TEXT NULL AFTER `description`;', 'SELECT "projects columns exist";');
 PREPARE s FROM @stmt; EXECUTE s; DEALLOCATE PREPARE s;
 
+SET @col_android = (SELECT COUNT(*) FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'projects' AND COLUMN_NAME = 'android_url');
+SET @stmt_android = IF(@col_android = 0, 'ALTER TABLE `projects` ADD `android_url` VARCHAR(255) NULL AFTER `github_url`, ADD `ios_url` VARCHAR(255) NULL AFTER `android_url`;', 'SELECT "projects app links exist";');
+PREPARE s_android FROM @stmt_android; EXECUTE s_android; DEALLOCATE PREPARE s_android;
+
 -- project_features
 SET @col = (SELECT COUNT(*) FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'project_features' AND COLUMN_NAME = 'description_ar');
 SET @stmt = IF(@col = 0, 'ALTER TABLE `project_features` ADD `description_ar` TEXT NULL AFTER `description`;', 'SELECT "project_features columns exist";');
@@ -281,7 +285,61 @@ INSERT INTO `project_technologies` (`id`, `project_id`, `name`, `sort_order`, `c
 (84, 4, 'Responsive UI', 5, '2026-11-23 12:16:11', '2026-11-23 12:16:11');
 
 -- ------------------------------------------------------------
--- 10. تحديث قسم الفيديو التفاعلي (عربي + إنجليزي)
+-- 10. إدخال صور ومعارض المشاريع (49 لقطة شاشة)
+-- ------------------------------------------------------------
+INSERT INTO `project_images` (`id`, `project_id`, `image_path`, `sort_order`, `created_at`, `updated_at`) VALUES
+(1, 1, 'projects/gallery/project1/project11.webp', 1, '2026-11-23 12:16:11', '2026-11-23 12:16:11'),
+(2, 1, 'projects/gallery/project1/project12.webp', 2, '2026-11-23 12:16:11', '2026-11-23 12:16:11'),
+(3, 1, 'projects/gallery/project1/project13.webp', 3, '2026-11-23 12:16:11', '2026-11-23 12:16:11'),
+(4, 1, 'projects/gallery/project1/project14.webp', 4, '2026-11-23 12:16:11', '2026-11-23 12:16:11'),
+(5, 1, 'projects/gallery/project1/project15.webp', 5, '2026-11-23 12:16:11', '2026-11-23 12:16:11'),
+(6, 1, 'projects/gallery/project1/project16.webp', 6, '2026-11-23 12:16:11', '2026-11-23 12:16:11'),
+(7, 1, 'projects/gallery/project1/project17.webp', 7, '2026-11-23 12:16:11', '2026-11-23 12:16:11'),
+(8, 1, 'projects/gallery/project1/project18.webp', 8, '2026-11-23 12:16:11', '2026-11-23 12:16:11'),
+(9, 1, 'projects/gallery/project1/project19.webp', 9, '2026-11-23 12:16:11', '2026-11-23 12:16:11'),
+(10, 1, 'projects/gallery/project1/project20.webp', 10, '2026-11-23 12:16:11', '2026-11-23 12:16:11'),
+(11, 1, 'projects/gallery/project1/project21.webp', 11, '2026-11-23 12:16:11', '2026-11-23 12:16:11'),
+(12, 1, 'projects/gallery/project1/project22.webp', 12, '2026-11-23 12:16:11', '2026-11-23 12:16:11'),
+(13, 1, 'projects/gallery/project1/project23.webp', 13, '2026-11-23 12:16:11', '2026-11-23 12:16:11'),
+(14, 1, 'projects/gallery/project1/project24.webp', 14, '2026-11-23 12:16:11', '2026-11-23 12:16:11'),
+(15, 1, 'projects/gallery/project1/project25.webp', 15, '2026-11-23 12:16:11', '2026-11-23 12:16:11'),
+(16, 1, 'projects/gallery/project1/project26.webp', 16, '2026-11-23 12:16:11', '2026-11-23 12:16:11'),
+(17, 1, 'projects/gallery/project1/project27.webp', 17, '2026-11-23 12:16:11', '2026-11-23 12:16:11'),
+(18, 1, 'projects/gallery/project1/project28.webp', 18, '2026-11-23 12:16:11', '2026-11-23 12:16:11'),
+(19, 2, 'projects/gallery/project3/project31.webp', 1, '2026-11-23 12:16:11', '2026-11-23 12:16:11'),
+(20, 2, 'projects/gallery/project3/project32.webp', 2, '2026-11-23 12:16:11', '2026-11-23 12:16:11'),
+(21, 2, 'projects/gallery/project3/project33.webp', 3, '2026-11-23 12:16:11', '2026-11-23 12:16:11'),
+(22, 2, 'projects/gallery/project3/project34.webp', 4, '2026-11-23 12:16:11', '2026-11-23 12:16:11'),
+(23, 2, 'projects/gallery/project3/project35.webp', 5, '2026-11-23 12:16:11', '2026-11-23 12:16:11'),
+(24, 2, 'projects/gallery/project3/project36.webp', 6, '2026-11-23 12:16:11', '2026-11-23 12:16:11'),
+(25, 3, 'projects/gallery/project2/21.webp', 1, '2026-11-23 12:16:11', '2026-11-23 12:16:11'),
+(26, 3, 'projects/gallery/project2/22.webp', 2, '2026-11-23 12:16:11', '2026-11-23 12:16:11'),
+(27, 3, 'projects/gallery/project2/23.webp', 3, '2026-11-23 12:16:11', '2026-11-23 12:16:11'),
+(28, 3, 'projects/gallery/project2/24.webp', 4, '2026-11-23 12:16:11', '2026-11-23 12:16:11'),
+(29, 3, 'projects/gallery/project2/25.webp', 5, '2026-11-23 12:16:11', '2026-11-23 12:16:11'),
+(30, 3, 'projects/gallery/project2/26.webp', 6, '2026-11-23 12:16:11', '2026-11-23 12:16:11'),
+(31, 3, 'projects/gallery/project2/27.webp', 7, '2026-11-23 12:16:11', '2026-11-23 12:16:11'),
+(32, 3, 'projects/gallery/project2/28.webp', 8, '2026-11-23 12:16:11', '2026-11-23 12:16:11'),
+(33, 3, 'projects/gallery/project2/29.webp', 9, '2026-11-23 12:16:11', '2026-11-23 12:16:11'),
+(34, 3, 'projects/gallery/project2/30.webp', 10, '2026-11-23 12:16:11', '2026-11-23 12:16:11'),
+(35, 3, 'projects/gallery/project2/31.webp', 11, '2026-11-23 12:16:11', '2026-11-23 12:16:11'),
+(36, 3, 'projects/gallery/project2/32.webp', 12, '2026-11-23 12:16:11', '2026-11-23 12:16:11'),
+(37, 3, 'projects/gallery/project2/33.webp', 13, '2026-11-23 12:16:11', '2026-11-23 12:16:11'),
+(38, 3, 'projects/gallery/project2/34.webp', 14, '2026-11-23 12:16:11', '2026-11-23 12:16:11'),
+(39, 3, 'projects/gallery/project2/35.webp', 15, '2026-11-23 12:16:11', '2026-11-23 12:16:11'),
+(40, 3, 'projects/gallery/project2/36.webp', 16, '2026-11-23 12:16:11', '2026-11-23 12:16:11'),
+(41, 3, 'projects/gallery/project2/37.webp', 17, '2026-11-23 12:16:11', '2026-11-23 12:16:11'),
+(42, 3, 'projects/gallery/project2/38.webp', 18, '2026-11-23 12:16:11', '2026-11-23 12:16:11'),
+(43, 3, 'projects/gallery/project2/39.webp', 19, '2026-11-23 12:16:11', '2026-11-23 12:16:11'),
+(44, 3, 'projects/gallery/project2/40.webp', 20, '2026-11-23 12:16:11', '2026-11-23 12:16:11'),
+(45, 3, 'projects/gallery/project2/41.webp', 21, '2026-11-23 12:16:11', '2026-11-23 12:16:11'),
+(46, 3, 'projects/gallery/project2/42.webp', 22, '2026-11-23 12:16:11', '2026-11-23 12:16:11'),
+(47, 3, 'projects/gallery/project2/43.webp', 23, '2026-11-23 12:16:11', '2026-11-23 12:16:11'),
+(48, 4, 'projects/gallery/project4/project41.webp', 1, '2026-11-23 12:16:11', '2026-11-23 12:16:11'),
+(49, 4, 'projects/gallery/project4/project42.webp', 2, '2026-11-23 12:16:11', '2026-11-23 12:16:11');
+
+-- ------------------------------------------------------------
+-- 11. تحديث قسم الفيديو التفاعلي (عربي + إنجليزي)
 -- ------------------------------------------------------------
 UPDATE `video_sections` SET
     `badge_ar` = 'عرض تفاعلي',
