@@ -23,6 +23,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        if (str_starts_with(config('app.url', ''), 'https://')) {
+            \Illuminate\Support\Facades\URL::forceScheme('https');
+        }
+
         View::composer(['layouts.portfolio', 'portfolio.*'], function ($view) {
             $profile = Profile::where('is_active', true)->first() ?? Profile::first();
             $settings = Setting::pluck('value', 'key');

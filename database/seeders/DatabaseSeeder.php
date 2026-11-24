@@ -30,85 +30,130 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        // ── Profile ────────────────────────────────────────────────────────
+        // ── Profile (Matched to Flutter AAA project) ───────────────────────
         Profile::updateOrCreate(['user_id' => $admin->id], [
             'full_name' => 'Ahmed Adel',
             'role' => 'Flutter Developer',
-            'tagline' => 'Flutter Developer & Mobile App Engineer',
+            'tagline' => 'Mobile App Engineer & Clean Architecture Enthusiast',
             'title' => 'Flutter Developer',
-            'bio' => 'A passionate Flutter Developer with expertise in building beautiful, scalable, and high-performance mobile applications. Experienced in clean architecture, state management, REST APIs, and UI/UX design.',
-            'email' => 'ahmedadelelmelegy@gmail.com',
-            'phone' => null,
-            'location' => 'Egypt',
+            'bio' => 'I am a dedicated Flutter developer with hands-on experience in building mobile apps, integrating APIs, managing Firebase services, and applying clean architecture principles. I learn rapidly, adapt to new challenges, and focus on writing maintainable, scalable code. I enjoy collaborating with teams and transforming ideas into polished user-friendly applications.',
+            'email' => 'ahmedadelelmelegy2@gmail.com',
+            'phone' => '01069371116',
+            'location' => 'Shebin El-Kom, Menoufia, Egypt',
             'avatar' => 'avatars/avatar.png',
             'cv_file' => null,
             'github_url' => 'https://github.com/ahmedAdelElmelegy',
-            'linkedin_url' => 'https://linkedin.com/in/ahmed-adel',
+            'linkedin_url' => 'https://www.linkedin.com/in/ahmed-adel-110467373',
             'twitter_url' => null,
-            'whatsapp' => null,
+            'whatsapp' => '01069371116',
             'is_active' => true,
         ]);
 
-        // ── Skills ─────────────────────────────────────────────────────────
+        // ── Skills (Matched to Flutter AAA skill_section.dart) ─────────────
+        Skill::truncate();
         $skills = [
-            // Flutter & Dart
-            ['name' => 'Flutter', 'category' => 'Mobile', 'level' => 95, 'icon' => 'flutter', 'sort_order' => 1, 'is_featured' => true],
-            ['name' => 'Dart', 'category' => 'Mobile', 'level' => 90, 'icon' => 'dart', 'sort_order' => 2, 'is_featured' => true],
-            // Architecture
-            ['name' => 'MVVM Architecture', 'category' => 'Architecture', 'level' => 85, 'icon' => 'architecture', 'sort_order' => 3, 'is_featured' => true],
-            ['name' => 'Clean Architecture', 'category' => 'Architecture', 'level' => 80, 'icon' => 'layers', 'sort_order' => 4, 'is_featured' => false],
-            ['name' => 'Cubit / Bloc', 'category' => 'State Management', 'level' => 85, 'icon' => 'bloc', 'sort_order' => 5, 'is_featured' => true],
-            ['name' => 'Provider', 'category' => 'State Management', 'level' => 80, 'icon' => 'provider', 'sort_order' => 6, 'is_featured' => false],
-            // Backend / APIs
-            ['name' => 'REST APIs (Dio)', 'category' => 'Backend', 'level' => 85, 'icon' => 'api', 'sort_order' => 7, 'is_featured' => true],
-            ['name' => 'Laravel', 'category' => 'Backend', 'level' => 75, 'icon' => 'laravel', 'sort_order' => 8, 'is_featured' => false],
-            // Tools
-            ['name' => 'Git & GitHub', 'category' => 'Tools', 'level' => 90, 'icon' => 'github', 'sort_order' => 9, 'is_featured' => false],
-            ['name' => 'Figma', 'category' => 'Design', 'level' => 70, 'icon' => 'figma', 'sort_order' => 10, 'is_featured' => false],
-            ['name' => 'Google Maps', 'category' => 'Mobile', 'level' => 80, 'icon' => 'maps', 'sort_order' => 11, 'is_featured' => false],
-            ['name' => 'Firebase', 'category' => 'Backend', 'level' => 75, 'icon' => 'firebase', 'sort_order' => 12, 'is_featured' => false],
-            ['name' => 'Get It (DI)', 'category' => 'Architecture', 'level' => 85, 'icon' => 'di', 'sort_order' => 13, 'is_featured' => false],
-            ['name' => 'Push Notifications', 'category' => 'Mobile', 'level' => 75, 'icon' => 'notifications', 'sort_order' => 14, 'is_featured' => false],
+            // 1. Frameworks & Architecture
+            ['name' => 'Clean Architecture', 'category' => 'Frameworks & Architecture', 'level' => 90, 'icon' => 'layers', 'sort_order' => 1, 'is_featured' => true],
+            ['name' => 'MVVM', 'category' => 'Frameworks & Architecture', 'level' => 90, 'icon' => 'architecture', 'sort_order' => 2, 'is_featured' => true],
+            ['name' => 'MVC', 'category' => 'Frameworks & Architecture', 'level' => 85, 'icon' => 'diagram-project', 'sort_order' => 3, 'is_featured' => false],
+
+            // 2. Mobile Development
+            ['name' => 'Flutter Apps', 'category' => 'Mobile Development', 'level' => 95, 'icon' => 'flutter', 'sort_order' => 4, 'is_featured' => true],
+            ['name' => 'Responsive & Adaptive Design', 'category' => 'Mobile Development', 'level' => 90, 'icon' => 'mobile-screen-button', 'sort_order' => 5, 'is_featured' => true],
+            ['name' => 'Bloc', 'category' => 'Mobile Development', 'level' => 90, 'icon' => 'cubes', 'sort_order' => 6, 'is_featured' => true],
+            ['name' => 'Cubit', 'category' => 'Mobile Development', 'level' => 90, 'icon' => 'cube', 'sort_order' => 7, 'is_featured' => true],
+            ['name' => 'GetX', 'category' => 'Mobile Development', 'level' => 85, 'icon' => 'bolt', 'sort_order' => 8, 'is_featured' => false],
+            ['name' => 'Provider', 'category' => 'Mobile Development', 'level' => 85, 'icon' => 'share-nodes', 'sort_order' => 9, 'is_featured' => false],
+
+            // 3. API & Backend Integration
+            ['name' => 'REST APIs (Dio & Http)', 'category' => 'API & Backend Integration', 'level' => 90, 'icon' => 'network-wired', 'sort_order' => 10, 'is_featured' => true],
+            ['name' => 'Firebase Authentication', 'category' => 'API & Backend Integration', 'level' => 85, 'icon' => 'fire', 'sort_order' => 11, 'is_featured' => false],
+            ['name' => 'Cloud Firestore', 'category' => 'API & Backend Integration', 'level' => 85, 'icon' => 'database', 'sort_order' => 12, 'is_featured' => false],
+            ['name' => 'Local Storage (Hive, SharedPreferences, Sqflite)', 'category' => 'API & Backend Integration', 'level' => 88, 'icon' => 'hard-drive', 'sort_order' => 13, 'is_featured' => false],
+            ['name' => 'Postman', 'category' => 'API & Backend Integration', 'level' => 85, 'icon' => 'paper-plane', 'sort_order' => 14, 'is_featured' => false],
+
+            // 4. Hardware & Device Features
+            ['name' => 'Google Maps', 'category' => 'Hardware & Device Features', 'level' => 85, 'icon' => 'map-location-dot', 'sort_order' => 15, 'is_featured' => false],
+            ['name' => 'Location Services', 'category' => 'Hardware & Device Features', 'level' => 85, 'icon' => 'location-crosshairs', 'sort_order' => 16, 'is_featured' => false],
+            ['name' => 'Push Notifications (FCM)', 'category' => 'Hardware & Device Features', 'level' => 85, 'icon' => 'bell', 'sort_order' => 17, 'is_featured' => false],
+
+            // 5. Tools & Platforms
+            ['name' => 'Visual Studio Code', 'category' => 'Tools & Platforms', 'level' => 95, 'icon' => 'code', 'sort_order' => 18, 'is_featured' => false],
+            ['name' => 'Android Studio', 'category' => 'Tools & Platforms', 'level' => 90, 'icon' => 'android', 'sort_order' => 19, 'is_featured' => false],
+            ['name' => 'Git', 'category' => 'Tools & Platforms', 'level' => 90, 'icon' => 'code-branch', 'sort_order' => 20, 'is_featured' => false],
+            ['name' => 'GitHub', 'category' => 'Tools & Platforms', 'level' => 90, 'icon' => 'github', 'sort_order' => 21, 'is_featured' => true],
+
+            // 6. Programming Languages
+            ['name' => 'Dart', 'category' => 'Programming Languages', 'level' => 95, 'icon' => 'terminal', 'sort_order' => 22, 'is_featured' => true],
+            ['name' => 'Java', 'category' => 'Programming Languages', 'level' => 80, 'icon' => 'java', 'sort_order' => 23, 'is_featured' => false],
+            ['name' => 'C++', 'category' => 'Programming Languages', 'level' => 75, 'icon' => 'microchip', 'sort_order' => 24, 'is_featured' => false],
+            ['name' => 'Python', 'category' => 'Programming Languages', 'level' => 70, 'icon' => 'python', 'sort_order' => 25, 'is_featured' => false],
+
+            // 7. Payment Integration
+            ['name' => 'Stripe Payment', 'category' => 'Payment Integration', 'level' => 85, 'icon' => 'credit-card', 'sort_order' => 26, 'is_featured' => true],
         ];
 
         foreach ($skills as $skill) {
-            Skill::updateOrCreate(['name' => $skill['name']], $skill);
+            Skill::create($skill);
         }
 
-        // ── Experiences ────────────────────────────────────────────────────
+        // ── Experiences & Education (Matched to Flutter AAA) ───────────────
+        Experience::truncate();
         $experiences = [
+            // Education
             [
-                'title' => 'Flutter Developer',
-                'organization' => 'Freelance',
-                'location' => 'Remote',
-                'start_date' => '2023-01-01',
-                'end_date' => null,
-                'is_current' => true,
-                'description' => 'Building cross-platform mobile applications for clients using Flutter, clean architecture, and modern state management patterns.',
+                'title' => 'Faculty of Electronic Engineering',
+                'organization' => 'Menoufia University',
+                'location' => 'Menoufia, Egypt',
+                'start_date' => '2020-09-01',
+                'end_date' => '2025-06-30',
+                'is_current' => false,
+                'description' => 'Studying Electronic & Computer Engineering with emphasis on algorithms, data structures, mobile computing, and software engineering.',
+                'type' => 'education',
+                'sort_order' => 1,
+            ],
+            // Work Experiences / Internships
+            [
+                'title' => 'Flutter Development Intern',
+                'organization' => 'Acme Integrated Engineering System (IES)',
+                'location' => 'Cairo, Egypt',
+                'start_date' => '2025-09-01',
+                'end_date' => '2025-11-30',
+                'is_current' => false,
+                'description' => 'Developed production-grade Flutter features, handled REST API integration, state management, and applied clean architecture standards.',
                 'type' => 'work',
                 'sort_order' => 1,
             ],
             [
-                'title' => 'Bachelor of Computer Science',
-                'organization' => 'Egyptian University',
-                'location' => 'Egypt',
-                'start_date' => '2020-09-01',
-                'end_date' => '2024-06-01',
+                'title' => 'Flutter Development Intern',
+                'organization' => 'PureSoft',
+                'location' => 'Shebin El-Kom, Egypt',
+                'start_date' => '2025-08-01',
+                'end_date' => '2025-09-30',
                 'is_current' => false,
-                'description' => 'Studied computer science fundamentals including algorithms, data structures, software engineering, and mobile development.',
-                'type' => 'education',
+                'description' => 'Contributed to building cross-platform Flutter applications, responsive UI implementations, local caching, and bug fixing.',
+                'type' => 'work',
                 'sort_order' => 2,
+            ],
+            [
+                'title' => 'UI/UX Training Program',
+                'organization' => 'Information Technology Institute (ITI)',
+                'location' => 'Shebin El-Kom, Egypt',
+                'start_date' => '2024-07-01',
+                'end_date' => '2024-08-31',
+                'is_current' => false,
+                'description' => 'Intensive professional training in user experience research, wireframing, interactive prototyping, and design systems using Figma.',
+                'type' => 'work',
+                'sort_order' => 3,
             ],
         ];
 
         foreach ($experiences as $exp) {
-            Experience::updateOrCreate(
-                ['title' => $exp['title'], 'organization' => $exp['organization']],
-                $exp
-            );
+            Experience::create($exp);
         }
 
-        // ── Work Processes ─────────────────────────────────────────────────
+        // ── Work Processes (Matched to Flutter AAA app_constants.dart) ─────
+        WorkProcess::truncate();
         $processes = [
             ['title' => 'Research & Requirement Analysis', 'description' => 'Understanding user needs, defining project scope, and planning app features and data flow.', 'icon' => 'search', 'sort_order' => 1],
             ['title' => 'UI/UX Design', 'description' => 'Designing wireframes, UI components, color systems, and typography using Figma.', 'icon' => 'design_services', 'sort_order' => 2],
@@ -119,10 +164,13 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($processes as $process) {
-            WorkProcess::updateOrCreate(['title' => $process['title']], $process);
+            WorkProcess::create($process);
         }
 
-        // ── Projects ───────────────────────────────────────────────────────
+        // ── Projects (Matched to Flutter AAA project_model.dart) ───────────
+        // Clean out any dummy projects
+        Project::whereNotIn('slug', ['circle', 'nurse-bot', 'al-huda', 'bmi-tracker'])->delete();
+
         $projects = [
             [
                 'name' => 'Circle',
@@ -285,11 +333,11 @@ class DatabaseSeeder extends Seeder
                 'sort_order' => 3,
             ],
             [
-                'title' => 'Flutter & Mobile Engineering',
-                'value' => 'Clean Architecture & Scalable Apps',
-                'url' => '#projects',
-                'icon' => 'fa-solid fa-mobile-screen-button',
-                'badge' => 'Specialization',
+                'title' => 'Phone & WhatsApp',
+                'value' => '+201069371116',
+                'url' => 'https://wa.me/201069371116',
+                'icon' => 'fa-brands fa-whatsapp',
+                'badge' => 'Call & Chat',
                 'sort_order' => 4,
             ],
         ];
