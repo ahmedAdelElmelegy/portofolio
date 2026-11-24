@@ -67,11 +67,32 @@ class Project extends Model
         return $this->hasMany(ProjectFeature::class)->orderBy('sort_order');
     }
 
+    protected static function booted(): void
+    {
+        static::creating(function (Project $project) {
+            if (empty($project->published_at)) {
+                $project->published_at = now();
+            }
+        });
+
+        static::deleting(function (Project $project) {
+            if ($project->cover_image) {
+                Storage::disk('public')->delete($project->cover_image);
+            }
+            foreach ($project->images as $image) {
+                $image->delete();
+            }
+        });
+    }
+
     // ─── Scopes ──────────────────────────────────────────────────────────────
 
     public function scopePublished($query)
     {
-        return $query->whereNotNull('published_at')->where('published_at', '<=', now());
+        return $query->where(function ($q) {
+            $q->whereNull('published_at')
+              ->orWhere('published_at', '<=', now());
+        });
     }
 
     public function scopeFeatured($query)

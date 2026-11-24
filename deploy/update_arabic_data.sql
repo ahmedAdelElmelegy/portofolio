@@ -41,6 +41,9 @@ SET @col_android = (SELECT COUNT(*) FROM information_schema.COLUMNS WHERE TABLE_
 SET @stmt_android = IF(@col_android = 0, 'ALTER TABLE `projects` ADD `android_url` VARCHAR(255) NULL AFTER `github_url`, ADD `ios_url` VARCHAR(255) NULL AFTER `android_url`;', 'SELECT "projects app links exist";');
 PREPARE s_android FROM @stmt_android; EXECUTE s_android; DEALLOCATE PREPARE s_android;
 
+-- تأكيد نشر كافة المشاريع لضمان عدم ظهور خطأ 404
+UPDATE `projects` SET `published_at` = NOW() WHERE `published_at` IS NULL;
+
 -- project_features
 SET @col = (SELECT COUNT(*) FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'project_features' AND COLUMN_NAME = 'description_ar');
 SET @stmt = IF(@col = 0, 'ALTER TABLE `project_features` ADD `description_ar` TEXT NULL AFTER `description`;', 'SELECT "project_features columns exist";');

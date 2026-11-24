@@ -6,6 +6,13 @@
     <title>@yield('title', $settings['site_name'] ?? 'Ahmed Adel — Flutter Developer')</title>
     <meta name="description" content="@yield('meta_description', $settings['seo_description'] ?? 'Portfolio of Ahmed Adel, Flutter Developer.')">
     
+    <!-- Favicon & App Icon (Using Cover / Profile Avatar) -->
+    @php
+        $appIconUrl = $profile?->avatar_url ?? asset('storage/avatars/avatar.png');
+    @endphp
+    <link rel="icon" type="image/png" href="{{ $appIconUrl }}">
+    <link rel="apple-touch-icon" href="{{ $appIconUrl }}">
+    
     <!-- Theme Script (Prevent FOUC) -->
     <script>
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -67,12 +74,18 @@
     <!-- Sticky Navigation Bar -->
     <header class="sticky top-0 z-50 bg-white/85 dark:bg-slate-950/85 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800/80 transition">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <!-- Logo -->
-            <a href="{{ route('home') }}" class="flex items-center gap-2.5 group">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-blue-400 text-white font-extrabold text-lg flex items-center justify-center shadow-lg shadow-blue-500/25 group-hover:scale-105 transition">
-                    {{ strtoupper(substr($profile?->full_name ?? 'A', 0, 1)) }}
+            <!-- Logo with Cover / Profile Avatar Icon -->
+            <a href="{{ route('home') }}" class="flex items-center gap-3 group">
+                <div class="w-11 h-11 rounded-2xl overflow-hidden shadow-lg shadow-blue-500/25 group-hover:scale-105 transition border-2 border-blue-500/30 p-0.5 bg-gradient-to-tr from-blue-600 to-cyan-400 shrink-0">
+                    @if($profile && $profile->avatar_url)
+                        <img src="{{ $profile->avatar_url }}" alt="{{ $profile->full_name }}" class="w-full h-full object-cover rounded-[13px]">
+                    @else
+                        <div class="w-full h-full bg-blue-600 text-white font-extrabold text-lg flex items-center justify-center rounded-[13px]">
+                            {{ strtoupper(substr($profile?->full_name ?? 'A', 0, 1)) }}
+                        </div>
+                    @endif
                 </div>
-                <div class="leading-none">
+                <div class="leading-tight">
                     <span class="text-lg font-black text-slate-900 dark:text-white tracking-wide block">{{ $profile?->full_name ?? 'Ahmed Adel' }}</span>
                     <span class="text-[11px] font-semibold text-blue-600 dark:text-blue-400">{{ $profile?->role ?? 'Flutter Developer' }}</span>
                 </div>

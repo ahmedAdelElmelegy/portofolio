@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Admin Dashboard') | Portfolio Manager</title>
     
+    @php
+        $siteProfile = \App\Models\Profile::first();
+        $appIconUrl = $siteProfile?->avatar_url ?? asset('storage/avatars/avatar.png');
+    @endphp
+    <!-- Favicon & App Icon (Using Cover / Profile Avatar) -->
+    <link rel="icon" type="image/png" href="{{ $appIconUrl }}">
+    <link rel="apple-touch-icon" href="{{ $appIconUrl }}">
+    
     <!-- Theme Script (Prevent FOUC) -->
     <script>
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -62,15 +70,21 @@
         <div class="fixed inset-y-0 start-0 z-50 w-64 bg-white dark:bg-slate-950 border-e border-slate-200 dark:border-slate-800 flex flex-col transition-transform duration-300 md:translate-x-0 rtl:md:translate-x-0"
              :class="sidebarOpen ? 'translate-x-0' : (document.dir === 'rtl' ? 'translate-x-full md:translate-x-0' : '-translate-x-full md:translate-x-0')">
             
-            <!-- Logo / Brand -->
+            <!-- Logo / Brand with Profile Avatar -->
             <div class="h-16 flex items-center justify-between px-6 border-b border-slate-200 dark:border-slate-800">
                 <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3">
-                    <div class="w-9 h-9 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-blue-500/30">
-                        <i class="fa-solid fa-code"></i>
+                    <div class="w-10 h-10 rounded-2xl overflow-hidden shadow-md shadow-blue-500/20 border border-blue-500/30 p-0.5 bg-gradient-to-tr from-blue-600 to-cyan-500 shrink-0">
+                        @if($appIconUrl)
+                            <img src="{{ $appIconUrl }}" alt="Admin" class="w-full h-full object-cover rounded-[13px]">
+                        @else
+                            <div class="w-full h-full bg-blue-600 flex items-center justify-center text-white font-bold rounded-[13px]">
+                                <i class="fa-solid fa-code"></i>
+                            </div>
+                        @endif
                     </div>
                     <div>
-                        <span class="font-extrabold text-base tracking-wide text-slate-900 dark:text-white block">Portfolio CMS</span>
-                        <span class="text-xs text-blue-600 dark:text-blue-400 font-medium">Laravel 12 Dashboard</span>
+                        <span class="font-extrabold text-sm tracking-wide text-slate-900 dark:text-white block">{{ $siteProfile?->full_name ?? 'Ahmed Adel' }}</span>
+                        <span class="text-[11px] text-blue-600 dark:text-blue-400 font-medium">Portfolio CMS</span>
                     </div>
                 </a>
                 <button class="md:hidden text-slate-400 hover:text-slate-600 dark:hover:text-white" @click="sidebarOpen = false">
@@ -180,10 +194,15 @@
         <div class="flex-1 md:ps-64 flex flex-col min-w-0">
             <!-- Topbar on mobile -->
             <div class="md:hidden h-16 bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-4 sticky top-0 z-30">
-                <button @click="sidebarOpen = true" class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white p-2">
-                    <i class="fa-solid fa-bars text-xl"></i>
-                </button>
-                <span class="font-bold text-slate-900 dark:text-white text-base">Portfolio Admin</span>
+                <div class="flex items-center gap-2.5">
+                    <button @click="sidebarOpen = true" class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white p-1">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                    <div class="w-8 h-8 rounded-xl overflow-hidden border border-blue-500/30 shadow-sm shrink-0">
+                        <img src="{{ $appIconUrl }}" alt="Avatar" class="w-full h-full object-cover">
+                    </div>
+                    <span class="font-bold text-slate-900 dark:text-white text-sm">Portfolio Admin</span>
+                </div>
                 <div class="flex items-center gap-2">
                     <a href="{{ route('locale.switch', app()->getLocale() === 'ar' ? 'en' : 'ar') }}"
                        class="px-2 py-1 rounded-md text-xs font-bold text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-900">

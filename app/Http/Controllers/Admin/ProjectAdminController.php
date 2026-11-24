@@ -33,7 +33,8 @@ class ProjectAdminController extends Controller
     {
         DB::transaction(function () use ($request) {
             $data = $request->validated();
-            $data['slug'] = Str::slug($data['name']);
+            $data['slug'] = Str::slug($data['name']) ?: ('project-' . time());
+            $data['published_at'] = $data['published_at'] ?? now();
 
             if ($request->hasFile('cover_image')) {
                 $data['cover_image'] = $request->file('cover_image')->store('projects/covers', 'public');
@@ -46,7 +47,7 @@ class ProjectAdminController extends Controller
             $this->storeImages($project, $request->file('images', []));
         });
 
-        return redirect()->route('admin.projects.index')->with('success', 'Project created.');
+        return redirect()->route('admin.projects.index')->with('success', 'Project created successfully.');
     }
 
     public function show(Project $project)
@@ -67,6 +68,9 @@ class ProjectAdminController extends Controller
     {
         DB::transaction(function () use ($request, $project) {
             $data = $request->validated();
+            if (empty($project->published_at) && empty($data['published_at'])) {
+                $data['published_at'] = now();
+            }
 
             if ($request->hasFile('cover_image')) {
                 Storage::disk('public')->delete($project->cover_image ?? '');
