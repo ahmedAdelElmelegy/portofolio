@@ -7,10 +7,19 @@
         <div class="flex flex-col-reverse lg:flex-row items-center justify-between gap-12">
             <!-- Left Headline -->
             <div class="flex-1 space-y-6 text-center lg:text-left">
-                <span class="inline-block px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-600 dark:text-blue-400 text-xs font-bold tracking-wider uppercase">
-                    {{ __('Hello, It\'s Me') }}
-                </span>
-                <h1 class="text-4xl sm:text-6xl font-black text-slate-900 dark:text-white tracking-tight leading-none">
+                <div class="flex flex-wrap items-center justify-center lg:justify-start gap-2.5">
+                    <span class="inline-block px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-600 dark:text-blue-400 text-xs font-bold tracking-wider uppercase">
+                        {{ __('Hello, It\'s Me') }}
+                    </span>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-bold">
+                        <span class="relative flex h-2 w-2">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                        </span>
+                        <span>{{ __('Available for Projects') }}</span>
+                    </span>
+                </div>
+                <h1 class="text-4xl sm:text-6xl font-black text-slate-900 dark:text-white tracking-tight leading-tight sm:leading-none">
                     {{ $profile->full_name ?? 'Ahmed Adel' }}
                 </h1>
                 
@@ -48,7 +57,7 @@
                              }, 100);
                          }
                      }">
-                    <span>{{ __('And I\'m a') }} </span>
+                    <span>{{ app()->getLocale() === 'ar' ? 'وأنا ' : 'And I\'m a ' }}</span>
                     <span class="text-blue-600 dark:text-blue-500" x-text="current"></span>
                     <span class="inline-block w-1 h-7 bg-blue-600 dark:bg-blue-500 align-middle animate-pulse ml-0.5"></span>
                 </div>
@@ -95,12 +104,10 @@
                 </div>
             </div>
 
-            <!-- Right Profile Shape -->
+            <!-- Right Profile Shape with Floating Motion -->
             <div class="flex-1 flex justify-center">
-                <div class="relative w-72 h-72 sm:w-88 sm:h-88">
-                    <!-- Glow background -->
-                    <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-blue-600/30 to-amber-500/20 blur-2xl"></div>
-                    <div class="relative w-full h-full rounded-3xl bg-gradient-to-b from-blue-600 to-blue-900 p-1.5 shadow-2xl overflow-hidden flex items-center justify-center">
+                <div class="relative w-72 h-72 sm:w-88 sm:h-88 animate-float">
+                    <div class="relative w-full h-full rounded-3xl bg-gradient-to-b from-blue-600 to-blue-900 p-1.5 shadow-xl overflow-hidden flex items-center justify-center">
                         @if($profile && $profile->avatar)
                             <img src="{{ $profile->avatar_url }}" alt="{{ $profile->full_name }}" class="w-full h-full object-cover rounded-2xl">
                         @else
@@ -128,17 +135,17 @@
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
             <!-- Work Experience Timeline -->
-            <div class="bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800/80 rounded-3xl p-8 shadow-sm transition-colors">
+            <div class="bg-white dark:bg-slate-900/60 border border-slate-200/90 dark:border-slate-800/80 rounded-3xl p-6 sm:p-8 shadow-sm transition-colors reveal-on-scroll delay-100">
                 <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-3">
                     <div class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center">
                         <i class="fa-solid fa-briefcase"></i>
                     </div>
                     <span>{{ __('Work Experience') }}</span>
                 </h3>
-                <div class="space-y-8 border-l-2 border-slate-200 dark:border-slate-800 pl-6 ml-4">
+                <div class="space-y-8 border-s-2 border-slate-200 dark:border-slate-800/80 ps-6 ms-3">
                     @forelse($experiences['work'] ?? [] as $work)
                         <div class="relative group">
-                            <span class="absolute -left-[31px] top-1.5 w-3 h-3 rounded-full bg-blue-500 ring-4 ring-white dark:ring-slate-950"></span>
+                            <span class="absolute -start-[31px] top-1.5 w-3 h-3 rounded-full bg-blue-500 ring-4 ring-white dark:ring-slate-900"></span>
                             <div class="flex items-center justify-between">
                                 <h4 class="text-base font-bold text-slate-900 dark:text-white">{{ $work->title }}</h4>
                                 <span class="text-xs font-mono text-slate-500">{{ $work->date_range }}</span>
@@ -155,17 +162,17 @@
             </div>
 
             <!-- Education Timeline -->
-            <div class="bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800/80 rounded-3xl p-8 shadow-sm transition-colors">
+            <div class="bg-white dark:bg-slate-900/60 border border-slate-200/90 dark:border-slate-800/80 rounded-3xl p-6 sm:p-8 shadow-sm transition-colors reveal-on-scroll delay-200">
                 <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-3">
                     <div class="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center">
                         <i class="fa-solid fa-graduation-cap"></i>
                     </div>
                     <span>{{ __('Education & Degrees') }}</span>
                 </h3>
-                <div class="space-y-8 border-l-2 border-slate-200 dark:border-slate-800 pl-6 ml-4">
+                <div class="space-y-8 border-s-2 border-slate-200 dark:border-slate-800/80 ps-6 ms-3">
                     @forelse($experiences['education'] ?? [] as $edu)
                         <div class="relative group">
-                            <span class="absolute -left-[31px] top-1.5 w-3 h-3 rounded-full bg-purple-500 ring-4 ring-white dark:ring-slate-950"></span>
+                            <span class="absolute -start-[31px] top-1.5 w-3 h-3 rounded-full bg-purple-500 ring-4 ring-white dark:ring-slate-900"></span>
                             <div class="flex items-center justify-between">
                                 <h4 class="text-base font-bold text-slate-900 dark:text-white">{{ $edu->title }}</h4>
                                 <span class="text-xs font-mono text-slate-500">{{ $edu->date_range }}</span>
@@ -192,7 +199,7 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             @foreach($skills as $category => $skillGroup)
-                <div class="bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800/80 rounded-3xl p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition">
+                <div class="bg-white dark:bg-slate-900/60 border border-slate-200/90 dark:border-slate-800/80 rounded-3xl p-6 sm:p-7 flex flex-col justify-between shadow-sm hover:shadow-md transition reveal-on-scroll delay-{{ ($loop->index % 3) * 100 }}">
                     <div>
                         <h3 class="text-base font-bold text-slate-900 dark:text-white mb-4 flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800/80">
                             <span class="flex items-center gap-2">
@@ -203,7 +210,7 @@
                         </h3>
                         <div class="flex flex-wrap gap-2.5 pt-1">
                             @foreach($skillGroup as $s)
-                                <div class="px-3.5 py-2 rounded-xl border transition flex items-center gap-2 group {{ $s->is_featured ? 'bg-blue-50/70 dark:bg-blue-950/40 border-blue-200 dark:border-blue-800/80 text-blue-900 dark:text-blue-200 font-bold shadow-sm' : 'bg-slate-50 dark:bg-slate-900/60 border-slate-200/80 dark:border-slate-800 text-slate-800 dark:text-slate-200 hover:border-blue-400 dark:hover:border-blue-500 hover:-translate-y-0.5' }}">
+                                <div class="px-3.5 py-2 rounded-xl border transition flex items-center gap-2 group hover-bounce {{ $s->is_featured ? 'bg-blue-50/70 dark:bg-blue-950/40 border-blue-200 dark:border-blue-800/80 text-blue-900 dark:text-blue-200 font-bold shadow-sm' : 'bg-slate-50 dark:bg-slate-900/60 border-slate-200/80 dark:border-slate-800 text-slate-800 dark:text-slate-200 hover:border-blue-400 dark:hover:border-blue-500 hover:-translate-y-0.5' }}">
                                     <i class="{{ $s->fa_icon_class }} text-sm text-blue-600 dark:text-blue-400 group-hover:scale-110 transition duration-200"></i>
                                     <span class="text-xs tracking-tight">{{ $s->name }}</span>
                                     @if($s->is_featured)
@@ -228,7 +235,7 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             @foreach($processes as $p)
-                <div class="bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800/80 rounded-3xl p-7 relative overflow-hidden group hover:border-blue-500/50 shadow-sm transition">
+                <div class="bg-white dark:bg-slate-900/60 border border-slate-200/90 dark:border-slate-800/80 rounded-3xl p-6 sm:p-7 relative overflow-hidden group hover:border-blue-500/50 shadow-sm hover:shadow-md transition reveal-on-scroll delay-{{ ($loop->index % 3) * 100 }}">
                     <div class="w-12 h-12 rounded-2xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center text-lg font-black mb-5 group-hover:scale-110 transition">
                         0{{ $p->sort_order }}
                     </div>
@@ -249,7 +256,7 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             @foreach($projects as $proj)
-                <div class="bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800/80 rounded-3xl overflow-hidden flex flex-col justify-between group hover:border-blue-500/50 shadow-sm hover:shadow-xl transition">
+                <div class="bg-white dark:bg-slate-900/60 border border-slate-200/90 dark:border-slate-800/80 rounded-3xl overflow-hidden flex flex-col justify-between group hover:border-blue-500/50 shadow-sm hover:shadow-xl transition-all duration-300 reveal-on-scroll delay-{{ ($loop->index % 2) * 150 }}">
                     <div class="p-8">
                         <div class="flex items-center justify-between gap-4 mb-3">
                             <h3 class="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition">{{ $proj->name }}</h3>
@@ -275,7 +282,7 @@
                     </div>
 
                     <!-- Footer / Links -->
-                    <div class="px-8 py-4 bg-slate-50 dark:bg-slate-900/60 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs font-bold">
+                    <div class="px-8 py-4 bg-slate-50 dark:bg-slate-900/80 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs font-bold">
                         <div class="flex items-center gap-2 sm:gap-2.5">
                             {{-- GitHub Icon & Link (Only shown if github_url is filled) --}}
                             @if(!empty($proj->github_url))
@@ -321,81 +328,133 @@
 
     <!-- Contact Form Section -->
     <section id="contact" class="max-w-4xl mx-auto px-6">
-        <div class="bg-white dark:bg-gradient-to-br dark:from-slate-950 dark:via-slate-900 dark:to-blue-950/40 border border-slate-200 dark:border-slate-800 rounded-3xl p-8 md:p-12 shadow-xl dark:shadow-2xl transition-colors">
-            <div class="text-center max-w-xl mx-auto mb-10">
-                <span class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">{{ __('Get in Touch') }}</span>
-                <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white mt-1">{{ __('Let\'s Build Something Great') }}</h2>
-                <p class="text-slate-600 dark:text-slate-400 text-xs mt-2">{{ __('Have a project in mind, need a mobile app, or looking to hire? Drop me a message.') }}</p>
+        <div class="relative bg-gradient-to-b from-white to-slate-50/80 dark:from-slate-900/95 dark:to-slate-950 border border-slate-200/90 dark:border-slate-800/90 rounded-[32px] p-8 sm:p-12 shadow-2xl backdrop-blur-xl overflow-hidden transition-all duration-300">
+            <!-- Decorative Ambient Glows -->
+            <div class="absolute -top-32 -left-32 w-80 h-80 bg-blue-500/10 dark:bg-blue-600/15 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-32 -right-32 w-80 h-80 bg-cyan-500/10 dark:bg-indigo-600/15 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="relative z-10 text-center max-w-xl mx-auto mb-10">
+                <span class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-600 dark:text-blue-400 text-xs font-bold uppercase tracking-wider mb-2">
+                    <i class="fa-solid fa-paper-plane text-[10px]"></i>
+                    {{ __('Get in Touch') }}
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mt-1 tracking-tight">{{ __('Let\'s Build Something Great') }}</h2>
+                <p class="text-slate-600 dark:text-slate-400 text-xs sm:text-sm mt-2 leading-relaxed">{{ __('Have a project in mind, need a mobile app, or looking to hire? Drop me a message.') }}</p>
             </div>
 
             @if(session('success'))
-                <div class="mb-6 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-sm font-semibold text-center">
-                    {{ session('success') }}
+                <div class="relative z-10 mb-6 p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-sm font-semibold text-center flex items-center justify-center gap-2 shadow-sm">
+                    <i class="fa-solid fa-circle-check text-base"></i>
+                    <span>{{ session('success') }}</span>
                 </div>
             @endif
 
-            <form action="{{ route('contact.store') }}" method="POST" class="space-y-5">
+            <form action="{{ route('contact.store') }}" method="POST" class="relative z-10 space-y-5">
                 @csrf
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div>
-                        <label class="block text-xs font-bold uppercase text-slate-700 dark:text-slate-300 mb-2">{{ __('Your Name *') }}</label>
-                        <input type="text" name="name" required placeholder="John Doe"
-                               class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm focus:border-blue-500 focus:outline-none focus:bg-white dark:focus:bg-slate-950 transition">
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">{{ __('Your Name *') }}</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 start-0 ps-4 flex items-center pointer-events-none text-slate-400 dark:text-slate-500">
+                                <i class="fa-regular fa-user text-sm"></i>
+                            </span>
+                            <input type="text" name="name" required placeholder="John Doe"
+                                   class="w-full ps-11 pe-4 py-3 bg-slate-50 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 focus:outline-none focus:bg-white dark:focus:bg-slate-950 transition">
+                        </div>
                     </div>
                     <div>
-                        <label class="block text-xs font-bold uppercase text-slate-700 dark:text-slate-300 mb-2">{{ __('Email Address *') }}</label>
-                        <input type="email" name="email" required placeholder="john@example.com"
-                               class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm focus:border-blue-500 focus:outline-none focus:bg-white dark:focus:bg-slate-950 transition">
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">{{ __('Email Address *') }}</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 start-0 ps-4 flex items-center pointer-events-none text-slate-400 dark:text-slate-500">
+                                <i class="fa-regular fa-envelope text-sm"></i>
+                            </span>
+                            <input type="email" name="email" required placeholder="john@example.com"
+                                   class="w-full ps-11 pe-4 py-3 bg-slate-50 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 focus:outline-none focus:bg-white dark:focus:bg-slate-950 transition">
+                        </div>
                     </div>
                 </div>
 
                 <div>
-                    <label class="block text-xs font-bold uppercase text-slate-700 dark:text-slate-300 mb-2">{{ __('Subject') }}</label>
-                    <input type="text" name="subject" placeholder="Project Inquiry / Job Opportunity"
-                           class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm focus:border-blue-500 focus:outline-none focus:bg-white dark:focus:bg-slate-950 transition">
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">{{ __('Subject') }}</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 start-0 ps-4 flex items-center pointer-events-none text-slate-400 dark:text-slate-500">
+                            <i class="fa-solid fa-tag text-xs"></i>
+                        </span>
+                        <input type="text" name="subject" placeholder="Project Inquiry / Job Opportunity"
+                               class="w-full ps-11 pe-4 py-3 bg-slate-50 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 focus:outline-none focus:bg-white dark:focus:bg-slate-950 transition">
+                    </div>
                 </div>
 
                 <div>
-                    <label class="block text-xs font-bold uppercase text-slate-700 dark:text-slate-300 mb-2">{{ __('Message *') }}</label>
-                    <textarea name="message" rows="5" required placeholder="Tell me about your project or inquiry..."
-                              class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm focus:border-blue-500 focus:outline-none focus:bg-white dark:focus:bg-slate-950 transition"></textarea>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">{{ __('Message *') }}</label>
+                    <div class="relative">
+                        <span class="absolute top-3.5 start-0 ps-4 pointer-events-none text-slate-400 dark:text-slate-500">
+                            <i class="fa-regular fa-comment-dots text-sm"></i>
+                        </span>
+                        <textarea name="message" rows="5" required placeholder="Tell me about your project or inquiry..."
+                                  class="w-full ps-11 pe-4 py-3 bg-slate-50 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 focus:outline-none focus:bg-white dark:focus:bg-slate-950 transition"></textarea>
+                    </div>
                 </div>
 
                 <div class="pt-2 text-center">
-                    <button type="submit" class="px-10 py-3.5 bg-blue-600 hover:bg-blue-500 text-white font-extrabold text-sm rounded-xl transition shadow-xl shadow-blue-500/30">
-                        {{ __('Send Message') }}
+                    <button type="submit" class="px-10 py-3.5 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-600 text-white font-extrabold text-sm rounded-xl transition-all shadow-xl shadow-blue-500/30 hover:shadow-blue-500/50 hover:scale-[1.02] flex items-center justify-center gap-2.5 mx-auto">
+                        <span>{{ __('Send Message') }}</span>
+                        <i class="fa-solid fa-paper-plane text-xs rtl:rotate-180"></i>
                     </button>
                 </div>
             </form>
 
-            <!-- Direct Contact Info Cards -->
-            <div class="mt-10 pt-8 border-t border-slate-200 dark:border-slate-800/80 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-center">
-                @if($profile?->email)
-                    <div class="p-3 bg-slate-50 dark:bg-slate-950/80 rounded-xl border border-slate-200 dark:border-slate-800">
-                        <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500 block">{{ __('Email') }}</span>
-                        <a href="mailto:{{ $profile->email }}" class="text-xs text-blue-600 dark:text-blue-400 hover:underline font-semibold truncate block mt-0.5">{{ $profile->email }}</a>
-                    </div>
-                @endif
-                @if($profile?->phone)
-                    <div class="p-3 bg-slate-50 dark:bg-slate-950/80 rounded-xl border border-slate-200 dark:border-slate-800">
-                        <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500 block">{{ __('Phone') }}</span>
-                        <button type="button" @click="$dispatch('open-modal', 'quick-contact-modal')" class="text-xs text-emerald-600 dark:text-emerald-400 hover:underline font-semibold block mt-0.5 mx-auto">
-                            {{ $profile->phone }}
+            <!-- Direct Contact Expressive Icon Channels -->
+            <div class="relative z-10 mt-12 pt-8 border-t border-slate-200/80 dark:border-slate-800/80">
+                <p class="text-center text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-6">
+                    {{ __('Or Connect Directly Via') }}
+                </p>
+                
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5 sm:gap-4">
+                    @if($profile?->email)
+                        <a href="mailto:{{ $profile->email }}" title="{{ $profile->email }}"
+                           class="group p-4 rounded-2xl bg-slate-50/80 dark:bg-slate-950/60 hover:bg-white dark:hover:bg-slate-900 border border-slate-200/90 dark:border-slate-800 hover:border-blue-500/50 flex flex-col items-center text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-blue-500/10">
+                            <div class="w-12 h-12 rounded-2xl bg-blue-500/10 border border-blue-500/20 text-blue-600 dark:text-blue-400 flex items-center justify-center text-xl group-hover:scale-110 group-hover:bg-blue-600 group-hover:text-white transition duration-300 shadow-sm mb-2">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <span class="text-xs font-bold text-slate-800 dark:text-slate-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition">{{ __('Email') }}</span>
+                            <span class="text-[11px] text-slate-600 dark:text-slate-400 font-medium truncate max-w-full mt-0.5">{{ __('Send Email') }}</span>
+                        </a>
+                    @endif
+
+                    @if($profile?->phone)
+                        <button type="button" @click="$dispatch('open-modal', 'quick-contact-modal')" title="{{ $profile->phone }}"
+                                class="group p-4 rounded-2xl bg-slate-50/80 dark:bg-slate-950/60 hover:bg-white dark:hover:bg-slate-900 border border-slate-200/90 dark:border-slate-800 hover:border-emerald-500/50 flex flex-col items-center text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-emerald-500/10 w-full">
+                            <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xl group-hover:scale-110 group-hover:bg-emerald-600 group-hover:text-white transition duration-300 shadow-sm mb-2">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                            <span class="text-xs font-bold text-slate-800 dark:text-slate-200 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition">{{ __('Phone') }}</span>
+                            <span class="text-[11px] text-slate-600 dark:text-slate-400 font-medium truncate max-w-full mt-0.5">{{ __('Call / Contact') }}</span>
                         </button>
-                    </div>
-                @endif
-                @if($profile?->location)
-                    <div class="p-3 bg-slate-50 dark:bg-slate-950/80 rounded-xl border border-slate-200 dark:border-slate-800">
-                        <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500 block">{{ __('Location') }}</span>
-                        <span class="text-xs text-slate-700 dark:text-slate-300 font-semibold block mt-0.5">{{ $profile->location }}</span>
-                    </div>
-                @endif
-                @if($profile?->whatsapp)
-                    <div class="p-3 bg-slate-50 dark:bg-slate-950/80 rounded-xl border border-slate-200 dark:border-slate-800">
-                        <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500 block">{{ __('WhatsApp') }}</span>
-                        <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $profile->whatsapp) }}" target="_blank" class="text-xs text-green-600 dark:text-green-400 hover:underline font-semibold block mt-0.5">{{ __('Chat on WhatsApp') }}</a>
-                    </div>
-                @endif
+                    @endif
+
+                    @if($profile?->whatsapp)
+                        <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $profile->whatsapp) }}" target="_blank" title="{{ __('WhatsApp Chat') }}"
+                           class="group p-4 rounded-2xl bg-slate-50/80 dark:bg-slate-950/60 hover:bg-white dark:hover:bg-slate-900 border border-slate-200/90 dark:border-slate-800 hover:border-green-500/50 flex flex-col items-center text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-green-500/10">
+                            <div class="w-12 h-12 rounded-2xl bg-green-500/10 border border-green-500/20 text-green-600 dark:text-green-400 flex items-center justify-center text-2xl group-hover:scale-110 group-hover:bg-green-600 group-hover:text-white transition duration-300 shadow-sm mb-2">
+                                <i class="fa-brands fa-whatsapp"></i>
+                            </div>
+                            <span class="text-xs font-bold text-slate-800 dark:text-slate-200 group-hover:text-green-600 dark:group-hover:text-green-400 transition">{{ __('WhatsApp') }}</span>
+                            <span class="text-[11px] text-slate-600 dark:text-slate-400 font-medium truncate max-w-full mt-0.5">{{ __('Chat Live') }}</span>
+                        </a>
+                    @endif
+
+                    @if($profile?->location)
+                        <a href="https://maps.google.com/?q={{ urlencode($profile->location) }}" target="_blank" title="{{ $profile->location }}"
+                           class="group p-4 rounded-2xl bg-slate-50/80 dark:bg-slate-950/60 hover:bg-white dark:hover:bg-slate-900 border border-slate-200/90 dark:border-slate-800 hover:border-amber-500/50 flex flex-col items-center text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-amber-500/10">
+                            <div class="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-600 dark:text-amber-400 flex items-center justify-center text-xl group-hover:scale-110 group-hover:bg-amber-600 group-hover:text-white transition duration-300 shadow-sm mb-2">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <span class="text-xs font-bold text-slate-800 dark:text-slate-200 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition">{{ __('Location') }}</span>
+                            <span class="text-[11px] text-slate-600 dark:text-slate-400 font-medium truncate max-w-full mt-0.5">{{ $profile->location }}</span>
+                        </a>
+                    @endif
+                </div>
             </div>
         </div>
     </section>

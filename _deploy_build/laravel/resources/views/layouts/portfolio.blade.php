@@ -53,6 +53,42 @@
     <style>
         body { font-family: {{ app()->getLocale() === 'ar' ? "'Cairo', sans-serif" : "'Urbanist', sans-serif" }}; }
         [x-cloak] { display: none !important; }
+        @if(app()->getLocale() === 'ar')
+            h1, h2, h3, h4 { line-height: 1.35 !important; }
+        @endif
+
+        /* Smooth Floating Animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        .animate-float {
+            animation: float 4.5s ease-in-out infinite;
+        }
+
+        /* Micro-bounce on hover */
+        .hover-bounce:hover i {
+            transform: scale(1.15) rotate(-3deg);
+            transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* Scroll Reveal System */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(22px);
+            transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+        .reveal-on-scroll.is-revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Stagger Delays */
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+        .delay-400 { transition-delay: 400ms; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 antialiased selection:bg-blue-600 selection:text-white transition-colors duration-200"
@@ -70,6 +106,9 @@
               }
           }
       }">
+
+    <!-- Top Reading / Scroll Progress Bar -->
+    <div id="scroll-progress-bar" class="fixed top-0 inset-x-0 h-[2.5px] bg-gradient-to-r from-blue-600 via-cyan-400 to-amber-500 z-[100] transition-all duration-75 pointer-events-none" style="width: 0%"></div>
 
     <!-- Sticky Navigation Bar -->
     <header class="sticky top-0 z-50 bg-white/85 dark:bg-slate-950/85 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800/80 transition">
@@ -185,6 +224,35 @@
     <!-- Global Quick Contact Modal & Snackbars -->
     <x-ui.quick-contact-dialog :profile="$profile" />
     <x-ui.snackbar />
+
+    <!-- Motion Observer & Scroll Progress Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const progressBar = document.getElementById('scroll-progress-bar');
+            window.addEventListener('scroll', () => {
+                const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                if (height > 0 && progressBar) {
+                    progressBar.style.width = ((winScroll / height) * 100) + '%';
+                }
+            }, { passive: true });
+
+            const reveals = document.querySelectorAll('.reveal-on-scroll');
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-revealed');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1 });
+                reveals.forEach(el => observer.observe(el));
+            } else {
+                reveals.forEach(el => el.classList.add('is-revealed'));
+            }
+        });
+    </script>
 </body>
 </html>
 

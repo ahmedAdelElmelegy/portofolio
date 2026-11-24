@@ -29,19 +29,16 @@
             <!-- Left: Video Player -->
             <div class="lg:col-span-5 flex justify-center">
                 <div class="relative w-full max-w-md mx-auto group">
-                    <!-- Glow behind video frame -->
-                    <div class="absolute -inset-1.5 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-[28px] opacity-30 dark:opacity-40 blur-lg group-hover:opacity-75 transition duration-500"></div>
-                    
-                    <div class="relative rounded-3xl bg-slate-100 dark:bg-slate-950 p-2 sm:p-2.5 border border-slate-200 dark:border-slate-800/80 shadow-2xl overflow-hidden transition-colors">
+                    <div class="relative rounded-[32px] bg-slate-900 dark:bg-slate-950 p-2 sm:p-2.5 border-2 border-slate-800/90 dark:border-slate-800 shadow-xl overflow-hidden transition-all duration-300 select-none hover:border-slate-700">
                         <!-- Top status pill -->
-                        <div class="absolute top-4 left-4 z-20 flex items-center gap-2 px-3 py-1 rounded-full bg-white/80 dark:bg-slate-950/80 backdrop-blur-md border border-slate-200 dark:border-slate-700/60 text-[11px] font-bold text-slate-800 dark:text-slate-200 shadow-md">
+                        <div class="absolute top-4 left-4 z-20 flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900/85 backdrop-blur-md border border-slate-700/60 text-[11px] font-bold text-slate-200 shadow-md pointer-events-none">
                             <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
-                            <span>{{ __('Interactive Video') }}</span>
+                            <span>{{ __('Video Preview') }}</span>
                         </div>
 
-                        <div class="relative rounded-2xl overflow-hidden bg-slate-900 aspect-[9/16] sm:aspect-[4/5] md:aspect-[3/4] max-h-[500px] flex items-center justify-center">
+                        <div class="relative rounded-[22px] overflow-hidden bg-black aspect-[9/16] sm:aspect-[4/5] md:aspect-[3/4] max-h-[500px] flex items-center justify-center">
                             @if($videoSection->video_path)
-                                <video controls autoplay loop muted playsinline preload="auto" class="w-full h-full object-cover">
+                                <video autoplay loop muted playsinline preload="auto" disablepictureinpicture disableremoteplayback oncontextmenu="return false;" class="w-full h-full object-cover pointer-events-none select-none">
                                     <source src="{{ asset('storage/' . $videoSection->video_path) }}?v={{ $videoSection->updated_at?->timestamp }}" type="video/mp4">
                                     <source src="{{ asset('storage/' . $videoSection->video_path) }}?v={{ $videoSection->updated_at?->timestamp }}" type="video/webm">
                                     Your browser does not support HTML5 video.
