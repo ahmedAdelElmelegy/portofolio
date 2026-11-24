@@ -161,13 +161,17 @@
                     <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $profile->whatsapp) }}" target="_blank" class="hover:text-emerald-500 dark:hover:text-emerald-400 transition" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
                 @endif
                 @if($profile?->phone)
-                    <a href="tel:{{ $profile->phone }}" class="hover:text-cyan-500 dark:hover:text-cyan-400 transition" title="Call {{ $profile->phone }}"><i class="fa-solid fa-phone"></i></a>
+                    <button type="button" @click="$dispatch('open-modal', 'quick-contact-modal')" class="hover:text-cyan-500 dark:hover:text-cyan-400 transition" title="{{ __('Contact') }} {{ $profile->phone }}"><i class="fa-solid fa-phone"></i></button>
                 @endif
             </div>
             <p>© {{ $settings['copyright_year'] ?? date('Y') }} {{ $profile?->full_name ?? 'Ahmed Adel' }}. {{ __('All rights reserved.') }}</p>
             <p><a href="{{ route('admin.login') }}" class="hover:text-slate-700 dark:hover:text-slate-400 transition">{{ __('Admin Login') }}</a></p>
         </div>
     </footer>
+
+    <!-- Global Quick Contact Modal & Snackbars -->
+    <x-ui.quick-contact-dialog :profile="$profile" />
+    <x-ui.snackbar />
 </body>
 </html>
 

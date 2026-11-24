@@ -2,17 +2,23 @@
 
 namespace App\Models;
 
+use App\Traits\HasBilingualFields;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Storage;
 
 class Project extends Model
 {
+    use HasBilingualFields;
+
     protected $fillable = [
         'name',
+        'name_ar',
         'slug',
         'description',
+        'description_ar',
         'short_description',
+        'short_description_ar',
         'cover_image',
         'github_url',
         'app_url',
@@ -26,6 +32,21 @@ class Project extends Model
         'sort_order' => 'integer',
         'published_at' => 'datetime',
     ];
+
+    public function getNameAttribute($value): ?string
+    {
+        return $this->getBilingualValue('name', $value);
+    }
+
+    public function getShortDescriptionAttribute($value): ?string
+    {
+        return $this->getBilingualValue('short_description', $value);
+    }
+
+    public function getDescriptionAttribute($value): ?string
+    {
+        return $this->getBilingualValue('description', $value);
+    }
 
     // ─── Relationships ───────────────────────────────────────────────────────
 
@@ -48,7 +69,7 @@ class Project extends Model
 
     public function scopePublished($query)
     {
-        return $query->whereNotNull('published_at');
+        return $query->whereNotNull('published_at')->where('published_at', '<=', now());
     }
 
     public function scopeFeatured($query)
@@ -61,26 +82,10 @@ class Project extends Model
         return $query->orderBy('sort_order');
     }
 
-    // ─── Accessors ───────────────────────────────────────────────────────────
+    // ─── Accessors ────────────────────────────────────────────────────────────
 
     public function getCoverImageUrlAttribute(): ?string
     {
-        return $this->cover_image
-            ? Storage::disk('public')->url($this->cover_image)
-            : null;
-    }
-
-    // ─── Lifecycle ───────────────────────────────────────────────────────────
-
-    protected static function booted(): void
-    {
-        static::deleting(function (Project $project) {
-            if ($project->cover_image) {
-                Storage::disk('public')->delete($project->cover_image);
-            }
-            foreach ($project->images as $image) {
-                Storage::disk('public')->delete($image->image_path);
-            }
-        });
+        return $this->cover_image ? Storage::disk('public')->url($this->cover_image) : null;
     }
 }

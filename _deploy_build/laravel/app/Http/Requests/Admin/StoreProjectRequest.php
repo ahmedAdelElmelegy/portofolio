@@ -15,8 +15,11 @@ class StoreProjectRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
+            'name_ar' => ['nullable', 'string', 'max:255'],
             'description' => ['required', 'string'],
+            'description_ar' => ['nullable', 'string'],
             'short_description' => ['nullable', 'string', 'max:500'],
+            'short_description_ar' => ['nullable', 'string', 'max:500'],
             'cover_image' => ['nullable', 'image', 'max:4096'],
             'github_url' => ['nullable', 'url', 'max:255'],
             'app_url' => ['nullable', 'url', 'max:255'],
@@ -27,6 +30,8 @@ class StoreProjectRequest extends FormRequest
             'technologies.*' => ['nullable', 'string', 'max:100'],
             'features' => ['nullable', 'array'],
             'features.*' => ['nullable', 'string', 'max:255'],
+            'features_ar' => ['nullable', 'array'],
+            'features_ar.*' => ['nullable', 'string', 'max:255'],
             'images' => ['nullable', 'array'],
             'images.*' => ['image', 'max:4096'],
         ];

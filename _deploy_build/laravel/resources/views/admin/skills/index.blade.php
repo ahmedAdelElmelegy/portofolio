@@ -45,10 +45,10 @@
                             <a href="{{ route('admin.skills.edit', $skill) }}" class="p-1.5 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white rounded hover:bg-slate-100 dark:hover:bg-slate-800">
                                 <i class="fa-solid fa-pen text-xs"></i>
                             </a>
-                            <form action="{{ route('admin.skills.destroy', $skill) }}" method="POST" onsubmit="return confirm('Delete this skill?')">
+                            <form id="delete-skill-{{ $skill->id }}" action="{{ route('admin.skills.destroy', $skill) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="p-1.5 text-slate-600 dark:text-slate-400 hover:text-red-400 rounded hover:bg-slate-100 dark:hover:bg-slate-800">
+                                <button type="button" @click="$dispatch('confirm-action', { formId: 'delete-skill-{{ $skill->id }}', title: @js(__('Delete Skill?')), message: @js(__('Are you sure you want to delete this skill?')) })" class="p-1.5 text-slate-600 dark:text-slate-400 hover:text-red-400 rounded hover:bg-slate-100 dark:hover:bg-slate-800">
                                     <i class="fa-solid fa-trash text-xs"></i>
                                 </button>
                             </form>

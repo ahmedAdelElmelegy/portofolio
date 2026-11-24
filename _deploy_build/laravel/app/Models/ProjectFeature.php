@@ -2,14 +2,29 @@
 
 namespace App\Models;
 
+use App\Traits\HasBilingualFields;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ProjectFeature extends Model
 {
-    protected $fillable = ['project_id', 'description', 'sort_order'];
+    use HasBilingualFields;
 
-    protected $casts = ['sort_order' => 'integer'];
+    protected $fillable = [
+        'project_id',
+        'description',
+        'description_ar',
+        'sort_order',
+    ];
+
+    protected $casts = [
+        'sort_order' => 'integer',
+    ];
+
+    public function getDescriptionAttribute($value): ?string
+    {
+        return $this->getBilingualValue('description', $value);
+    }
 
     public function project(): BelongsTo
     {

@@ -27,10 +27,10 @@
                             <a href="{{ route('admin.work-processes.edit', $process) }}" class="p-1.5 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white rounded hover:bg-slate-100 dark:hover:bg-slate-800">
                                 <i class="fa-solid fa-pen text-xs"></i>
                             </a>
-                            <form action="{{ route('admin.work-processes.destroy', $process) }}" method="POST" onsubmit="return confirm('Delete this step?')">
+                            <form id="delete-proc-{{ $process->id }}" action="{{ route('admin.work-processes.destroy', $process) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="p-1.5 text-slate-600 dark:text-slate-400 hover:text-red-400 rounded hover:bg-slate-100 dark:hover:bg-slate-800">
+                                <button type="button" @click="$dispatch('confirm-action', { formId: 'delete-proc-{{ $process->id }}', title: @js(__('Delete Process Step?')), message: @js(__('Are you sure you want to delete this step?')) })" class="p-1.5 text-slate-600 dark:text-slate-400 hover:text-red-400 rounded hover:bg-slate-100 dark:hover:bg-slate-800">
                                     <i class="fa-solid fa-trash text-xs"></i>
                                 </button>
                             </form>

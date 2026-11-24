@@ -42,7 +42,7 @@ class ProjectAdminController extends Controller
             $project = Project::create($data);
 
             $this->syncTechnologies($project, $request->input('technologies', []));
-            $this->syncFeatures($project, $request->input('features', []));
+            $this->syncFeatures($project, $request->input('features', []), $request->input('features_ar', []));
             $this->storeImages($project, $request->file('images', []));
         });
 
@@ -76,7 +76,7 @@ class ProjectAdminController extends Controller
             $project->update($data);
 
             $this->syncTechnologies($project, $request->input('technologies', []));
-            $this->syncFeatures($project, $request->input('features', []));
+            $this->syncFeatures($project, $request->input('features', []), $request->input('features_ar', []));
             $this->storeImages($project, $request->file('images', []));
         });
 
@@ -108,11 +108,16 @@ class ProjectAdminController extends Controller
         }
     }
 
-    private function syncFeatures(Project $project, array $descriptions): void
+    private function syncFeatures(Project $project, array $descriptions, array $descriptionsAr = []): void
     {
         $project->features()->delete();
         foreach (array_filter($descriptions) as $i => $desc) {
-            ProjectFeature::create(['project_id' => $project->id, 'description' => trim($desc), 'sort_order' => $i + 1]);
+            ProjectFeature::create([
+                'project_id' => $project->id,
+                'description' => trim($desc),
+                'description_ar' => !empty($descriptionsAr[$i]) ? trim($descriptionsAr[$i]) : null,
+                'sort_order' => $i + 1,
+            ]);
         }
     }
 

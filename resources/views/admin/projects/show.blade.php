@@ -62,12 +62,11 @@
                 @foreach($project->images as $img)
                     <div class="relative group rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900">
                         <img src="{{ $img->image_url }}" class="w-full h-36 object-cover">
-                        <form action="{{ route('admin.projects.images.destroy', [$project, $img]) }}" method="POST"
-                              class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition"
-                              onsubmit="return confirm('Remove this screenshot?')">
+                        <form id="delete-img-{{ $img->id }}" action="{{ route('admin.projects.images.destroy', [$project, $img]) }}" method="POST"
+                              class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="p-1.5 rounded-lg bg-red-600/90 text-slate-900 dark:text-white hover:bg-red-500 shadow">
+                            <button type="button" @click="$dispatch('confirm-action', { formId: 'delete-img-{{ $img->id }}', title: @js(__('Remove Screenshot?')), message: @js(__('Are you sure you want to delete this screenshot?')) })" class="p-1.5 rounded-lg bg-red-600/90 text-white hover:bg-red-500 shadow">
                                 <i class="fa-solid fa-trash text-xs"></i>
                             </button>
                         </form>

@@ -15,7 +15,9 @@ class StoreWorkProcessRequest extends FormRequest
     {
         return [
             'title' => ['required', 'string', 'max:255'],
+            'title_ar' => ['nullable', 'string', 'max:255'],
             'description' => ['required', 'string'],
+            'description_ar' => ['nullable', 'string'],
             'icon' => ['nullable', 'string', 'max:100'],
             'sort_order' => ['integer', 'min:0'],
         ];

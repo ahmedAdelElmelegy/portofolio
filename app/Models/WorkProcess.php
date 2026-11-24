@@ -2,13 +2,35 @@
 
 namespace App\Models;
 
+use App\Traits\HasBilingualFields;
 use Illuminate\Database\Eloquent\Model;
 
 class WorkProcess extends Model
 {
-    protected $fillable = ['title', 'description', 'icon', 'sort_order'];
+    use HasBilingualFields;
 
-    protected $casts = ['sort_order' => 'integer'];
+    protected $fillable = [
+        'title',
+        'title_ar',
+        'description',
+        'description_ar',
+        'icon',
+        'sort_order',
+    ];
+
+    protected $casts = [
+        'sort_order' => 'integer',
+    ];
+
+    public function getTitleAttribute($value): ?string
+    {
+        return $this->getBilingualValue('title', $value);
+    }
+
+    public function getDescriptionAttribute($value): ?string
+    {
+        return $this->getBilingualValue('description', $value);
+    }
 
     public function scopeOrdered($query)
     {

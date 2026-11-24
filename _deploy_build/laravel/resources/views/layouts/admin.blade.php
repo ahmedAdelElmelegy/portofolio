@@ -59,8 +59,8 @@
       }">
     <div class="min-h-full flex">
         <!-- Sidebar for Desktop & Mobile -->
-        <div class="fixed inset-y-0 left-0 z-50 w-64 bg-white dark:bg-slate-950 border-r border-slate-200 dark:border-slate-800 flex flex-col transition-transform duration-300 md:translate-x-0"
-             :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'">
+        <div class="fixed inset-y-0 start-0 z-50 w-64 bg-white dark:bg-slate-950 border-e border-slate-200 dark:border-slate-800 flex flex-col transition-transform duration-300 md:translate-x-0 rtl:md:translate-x-0"
+             :class="sidebarOpen ? 'translate-x-0' : (document.dir === 'rtl' ? 'translate-x-full md:translate-x-0' : '-translate-x-full md:translate-x-0')">
             
             <!-- Logo / Brand -->
             <div class="h-16 flex items-center justify-between px-6 border-b border-slate-200 dark:border-slate-800">
@@ -177,7 +177,7 @@
         </div>
 
         <!-- Main content area -->
-        <div class="flex-1 md:pl-64 flex flex-col min-w-0">
+        <div class="flex-1 md:ps-64 flex flex-col min-w-0">
             <!-- Topbar on mobile -->
             <div class="md:hidden h-16 bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-4 sticky top-0 z-30">
                 <button @click="sidebarOpen = true" class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white p-2">
@@ -229,5 +229,9 @@
             </main>
         </div>
     </div>
+
+    <!-- Global Admin Confirm Dialog & Snackbars -->
+    <x-ui.confirm-dialog />
+    <x-ui.snackbar />
 </body>
 </html>

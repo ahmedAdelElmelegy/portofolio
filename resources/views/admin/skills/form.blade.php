@@ -21,10 +21,17 @@
                    class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm focus:border-blue-500 focus:outline-none">
         </div>
 
-        <div>
-            <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">Category *</label>
-            <input type="text" name="category" value="{{ old('category', $skill->category ?? 'Mobile') }}" required placeholder="e.g. Mobile, Architecture, Backend, Tools"
-                   class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm focus:border-blue-500 focus:outline-none">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+                <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">Category (English) *</label>
+                <input type="text" name="category" value="{{ old('category', $skill->getRawOriginal('category') ?? 'Mobile Development') }}" required placeholder="e.g. Mobile Development"
+                       class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm focus:border-blue-500 focus:outline-none">
+            </div>
+            <div>
+                <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">التصنيف (عربي)</label>
+                <input type="text" name="category_ar" dir="rtl" value="{{ old('category_ar', $skill->category_ar) }}" placeholder="مثال: تطوير تطبيقات الموبايل"
+                       class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm focus:border-blue-500 focus:outline-none">
+            </div>
         </div>
 
         <div class="grid grid-cols-2 gap-4">
@@ -64,4 +71,3 @@
     </form>
 </div>
 @endsection
-

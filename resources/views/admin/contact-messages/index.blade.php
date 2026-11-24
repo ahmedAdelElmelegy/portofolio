@@ -39,10 +39,10 @@
                             <a href="{{ route('admin.contact-messages.show', $msg) }}" class="px-3 py-1.5 bg-slate-50 dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-900 dark:text-white rounded-lg transition">
                                 View
                             </a>
-                            <form action="{{ route('admin.contact-messages.destroy', $msg) }}" method="POST" onsubmit="return confirm('Delete message?')">
+                            <form id="delete-msg-{{ $msg->id }}" action="{{ route('admin.contact-messages.destroy', $msg) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="p-1.5 text-slate-500 hover:text-red-400 rounded-lg">
+                                <button type="button" @click="$dispatch('confirm-action', { formId: 'delete-msg-{{ $msg->id }}', title: @js(__('Delete Message?')), message: @js(__('Are you sure you want to delete this message?')) })" class="p-1.5 text-slate-500 hover:text-red-400 rounded-lg">
                                     <i class="fa-solid fa-trash text-xs"></i>
                                 </button>
                             </form>

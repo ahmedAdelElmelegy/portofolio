@@ -2,18 +2,25 @@
 
 namespace App\Models;
 
+use App\Traits\HasBilingualFields;
 use Illuminate\Database\Eloquent\Model;
 
 class Experience extends Model
 {
+    use HasBilingualFields;
+
     protected $fillable = [
         'title',
+        'title_ar',
         'organization',
+        'organization_ar',
         'location',
+        'location_ar',
         'start_date',
         'end_date',
         'is_current',
         'description',
+        'description_ar',
         'type',
         'sort_order',
     ];
@@ -24,6 +31,26 @@ class Experience extends Model
         'is_current' => 'boolean',
         'sort_order' => 'integer',
     ];
+
+    public function getTitleAttribute($value): ?string
+    {
+        return $this->getBilingualValue('title', $value);
+    }
+
+    public function getOrganizationAttribute($value): ?string
+    {
+        return $this->getBilingualValue('organization', $value);
+    }
+
+    public function getLocationAttribute($value): ?string
+    {
+        return $this->getBilingualValue('location', $value);
+    }
+
+    public function getDescriptionAttribute($value): ?string
+    {
+        return $this->getBilingualValue('description', $value);
+    }
 
     public function scopeWork($query)
     {

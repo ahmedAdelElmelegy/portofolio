@@ -52,10 +52,15 @@
             </h2>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Badge -->
+                <!-- Badge (EN & AR) -->
                 <div>
-                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">Section Badge</label>
-                    <input type="text" name="badge" value="{{ old('badge', $videoSection->badge) }}" placeholder="e.g. Interactive Showcase"
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">Section Badge (English)</label>
+                    <input type="text" name="badge" value="{{ old('badge', $videoSection->getRawOriginal('badge')) }}" placeholder="e.g. Interactive Showcase"
+                           class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm focus:border-blue-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">الشارة (عربي)</label>
+                    <input type="text" name="badge_ar" dir="rtl" value="{{ old('badge_ar', $videoSection->badge_ar) }}" placeholder="مثال: عرض تفاعلي"
                            class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm focus:border-blue-500 focus:outline-none">
                 </div>
 

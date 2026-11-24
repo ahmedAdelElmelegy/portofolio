@@ -6,8 +6,8 @@
 <div class="max-w-4xl space-y-6">
     <div class="flex items-center justify-between">
         <div>
-            <h1 class="text-2xl font-extrabold text-slate-900 dark:text-white">Edit Profile & Bio</h1>
-            <p class="text-slate-400 text-sm mt-1">This information appears directly on the Hero and About sections of your public portfolio.</p>
+            <h1 class="text-2xl font-extrabold text-slate-900 dark:text-white">{{ __('Profile Info') }}</h1>
+            <p class="text-slate-400 text-sm mt-1">This information appears directly on the Hero and About sections of your public portfolio in both English and Arabic.</p>
         </div>
     </div>
 
@@ -16,54 +16,79 @@
         @method('PUT')
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <!-- Full Name -->
+            <!-- Full Name (EN & AR) -->
             <div>
-                <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">Full Name *</label>
-                <input type="text" name="full_name" value="{{ old('full_name', $profile->full_name) }}" required
+                <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">Full Name (English) *</label>
+                <input type="text" name="full_name" value="{{ old('full_name', $profile->getRawOriginal('full_name')) }}" required
+                       class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm focus:border-blue-500 focus:outline-none">
+            </div>
+            <div>
+                <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">الاسم بالكامل (عربي)</label>
+                <input type="text" name="full_name_ar" dir="rtl" value="{{ old('full_name_ar', $profile->full_name_ar) }}" placeholder="مثال: أحمد عادل"
                        class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm focus:border-blue-500 focus:outline-none">
             </div>
 
-            <!-- Role (e.g. Flutter Developer) -->
+            <!-- Role (EN & AR) -->
             <div>
-                <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">Role Title *</label>
-                <input type="text" name="role" value="{{ old('role', $profile->role) }}" required placeholder="e.g. Flutter Developer"
+                <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">Role Title (English) *</label>
+                <input type="text" name="role" value="{{ old('role', $profile->getRawOriginal('role')) }}" required placeholder="e.g. Flutter Developer"
+                       class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm focus:border-blue-500 focus:outline-none">
+            </div>
+            <div>
+                <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">المسمى الوظيفي (عربي)</label>
+                <input type="text" name="role_ar" dir="rtl" value="{{ old('role_ar', $profile->role_ar) }}" placeholder="مثال: مطور تطبيقات فلاتر"
                        class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm focus:border-blue-500 focus:outline-none">
             </div>
 
-            <!-- Tagline for Typing text -->
+            <!-- Tagline (EN & AR) -->
             <div>
-                <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">Hero Tagline</label>
-                <input type="text" name="tagline" value="{{ old('tagline', $profile->tagline) }}" placeholder="e.g. Mobile Application Engineer"
+                <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">Hero Tagline (English)</label>
+                <input type="text" name="tagline" value="{{ old('tagline', $profile->getRawOriginal('tagline')) }}" placeholder="e.g. Mobile Application Engineer"
+                       class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm focus:border-blue-500 focus:outline-none">
+            </div>
+            <div>
+                <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">الوصف السريع للـ Hero (عربي)</label>
+                <input type="text" name="tagline_ar" dir="rtl" value="{{ old('tagline_ar', $profile->tagline_ar) }}" placeholder="مثال: مهندس تطبيقات الموبايل"
                        class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm focus:border-blue-500 focus:outline-none">
             </div>
 
-            <!-- Email -->
+            <!-- Email & Phone -->
             <div>
                 <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">Contact Email *</label>
                 <input type="email" name="email" value="{{ old('email', $profile->email) }}" required
                        class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm focus:border-blue-500 focus:outline-none">
             </div>
-
-            <!-- Phone -->
             <div>
                 <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">Phone</label>
                 <input type="text" name="phone" value="{{ old('phone', $profile->phone) }}"
                        class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm focus:border-blue-500 focus:outline-none">
             </div>
 
-            <!-- Location -->
+            <!-- Location (EN & AR) -->
             <div>
-                <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">Location</label>
-                <input type="text" name="location" value="{{ old('location', $profile->location) }}" placeholder="e.g. Cairo, Egypt"
+                <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">Location (English)</label>
+                <input type="text" name="location" value="{{ old('location', $profile->getRawOriginal('location')) }}" placeholder="e.g. Cairo, Egypt"
+                       class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm focus:border-blue-500 focus:outline-none">
+            </div>
+            <div>
+                <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">الموقع (عربي)</label>
+                <input type="text" name="location_ar" dir="rtl" value="{{ old('location_ar', $profile->location_ar) }}" placeholder="مثال: شبين الكوم، المنوفية، مصر"
                        class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm focus:border-blue-500 focus:outline-none">
             </div>
         </div>
 
-        <!-- Bio -->
-        <div>
-            <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">Bio / About Description *</label>
-            <textarea name="bio" rows="4" required
-                      class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm focus:border-blue-500 focus:outline-none">{{ old('bio', $profile->bio) }}</textarea>
+        <!-- Bio (EN & AR) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+            <div>
+                <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">Bio / About Description (English) *</label>
+                <textarea name="bio" rows="5" required
+                          class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm focus:border-blue-500 focus:outline-none">{{ old('bio', $profile->getRawOriginal('bio')) }}</textarea>
+            </div>
+            <div>
+                <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">النبذة والتعريف الشخصي (عربي)</label>
+                <textarea name="bio_ar" dir="rtl" rows="5" placeholder="اكتب نبذتك المهنية بالعربية..."
+                          class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm focus:border-blue-500 focus:outline-none">{{ old('bio_ar', $profile->bio_ar) }}</textarea>
+            </div>
         </div>
 
         <!-- Social URLs -->
@@ -133,4 +158,3 @@
     </form>
 </div>
 @endsection
-

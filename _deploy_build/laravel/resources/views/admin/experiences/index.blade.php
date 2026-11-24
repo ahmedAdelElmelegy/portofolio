@@ -47,10 +47,10 @@
                                 <a href="{{ route('admin.experiences.edit', $entry) }}" class="p-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-slate-900">
                                     <i class="fa-solid fa-pen text-sm"></i>
                                 </a>
-                                <form action="{{ route('admin.experiences.destroy', $entry) }}" method="POST" onsubmit="return confirm('Delete this timeline item?')">
+                                <form id="delete-exp-{{ $entry->id }}" action="{{ route('admin.experiences.destroy', $entry) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="p-2 text-slate-600 dark:text-slate-400 hover:text-red-400 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-900">
+                                    <button type="button" @click="$dispatch('confirm-action', { formId: 'delete-exp-{{ $entry->id }}', title: @js(__('Delete Timeline Item?')), message: @js(__('Are you sure you want to delete this experience/education item?')) })" class="p-2 text-slate-600 dark:text-slate-400 hover:text-red-400 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-900">
                                         <i class="fa-solid fa-trash text-sm"></i>
                                     </button>
                                 </form>

@@ -42,10 +42,10 @@
                             <a href="{{ route('admin.projects.edit', $project) }}" title="Edit" class="p-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-slate-900">
                                 <i class="fa-solid fa-pen text-sm"></i>
                             </a>
-                            <form action="{{ route('admin.projects.destroy', $project) }}" method="POST" onsubmit="return confirm('Delete this project?')">
+                            <form id="delete-proj-{{ $project->id }}" action="{{ route('admin.projects.destroy', $project) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" title="Delete" class="p-2 text-slate-600 dark:text-slate-400 hover:text-red-400 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-900">
+                                <button type="button" @click="$dispatch('confirm-action', { formId: 'delete-proj-{{ $project->id }}', title: @js(__('Delete Project?')), message: @js(__('Are you sure you want to delete this project and all its screenshots?')) })" title="Delete" class="p-2 text-slate-600 dark:text-slate-400 hover:text-red-400 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-900">
                                     <i class="fa-solid fa-trash text-sm"></i>
                                 </button>
                             </form>

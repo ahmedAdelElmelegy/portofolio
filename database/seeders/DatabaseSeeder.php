@@ -33,13 +33,19 @@ class DatabaseSeeder extends Seeder
         // ── Profile (Matched to Flutter AAA project) ───────────────────────
         Profile::updateOrCreate(['user_id' => $admin->id], [
             'full_name' => 'Ahmed Adel',
+            'full_name_ar' => 'أحمد عادل',
             'role' => 'Flutter Developer',
+            'role_ar' => 'مطور تطبيقات فلاتر',
             'tagline' => 'Mobile App Engineer & Clean Architecture Enthusiast',
+            'tagline_ar' => 'مهندس تطبيقات الموبايل وشغوف بالـ Clean Architecture',
             'title' => 'Flutter Developer',
+            'title_ar' => 'مطور تطبيقات فلاتر',
             'bio' => 'I am a dedicated Flutter developer with hands-on experience in building mobile apps, integrating APIs, managing Firebase services, and applying clean architecture principles. I learn rapidly, adapt to new challenges, and focus on writing maintainable, scalable code. I enjoy collaborating with teams and transforming ideas into polished user-friendly applications.',
+            'bio_ar' => 'أنا مطور تطبيقات فلاتر شغوف ولدي خبرة عملية في بناء تطبيقات الموبايل، والربط مع الـ APIs، وإدارة خدمات Firebase، وتطبيق مبادئ المعمارية النظيفة (Clean Architecture). أتعلم بسرعة وأتكيف مع التحديات التقنية الجديدة، وأركز على كتابة كود منظم وقابل للتوسع والصيانة. أستمتع بالعمل الجماعي وتحويل الأفكار إلى تطبيقات عملية ومتقنة للمستخدمين.',
             'email' => 'ahmedadelelmelegy2@gmail.com',
             'phone' => '01069371116',
             'location' => 'Shebin El-Kom, Menoufia, Egypt',
+            'location_ar' => 'شبين الكوم، المنوفية، مصر',
             'avatar' => 'avatars/avatar.png',
             'cv_file' => 'https://drive.google.com/drive/u/0/mobile/folders/1Du__WLyTM0zhOU2ZfzEAYIz5cjqcjS0Q?hl=ar&sort=13&direction=a',
             'github_url' => 'https://github.com/ahmedAdelElmelegy',
@@ -53,44 +59,44 @@ class DatabaseSeeder extends Seeder
         Skill::truncate();
         $skills = [
             // 1. Frameworks & Architecture
-            ['name' => 'Clean Architecture', 'category' => 'Frameworks & Architecture', 'level' => 90, 'icon' => 'layers', 'sort_order' => 1, 'is_featured' => true],
-            ['name' => 'MVVM', 'category' => 'Frameworks & Architecture', 'level' => 90, 'icon' => 'architecture', 'sort_order' => 2, 'is_featured' => true],
-            ['name' => 'MVC', 'category' => 'Frameworks & Architecture', 'level' => 85, 'icon' => 'diagram-project', 'sort_order' => 3, 'is_featured' => false],
+            ['name' => 'Clean Architecture', 'category' => 'Frameworks & Architecture', 'category_ar' => 'المعمارية والأنماط الهيكلية', 'level' => 90, 'icon' => 'layers', 'sort_order' => 1, 'is_featured' => true],
+            ['name' => 'MVVM', 'category' => 'Frameworks & Architecture', 'category_ar' => 'المعمارية والأنماط الهيكلية', 'level' => 90, 'icon' => 'architecture', 'sort_order' => 2, 'is_featured' => true],
+            ['name' => 'MVC', 'category' => 'Frameworks & Architecture', 'category_ar' => 'المعمارية والأنماط الهيكلية', 'level' => 85, 'icon' => 'diagram-project', 'sort_order' => 3, 'is_featured' => false],
 
             // 2. Mobile Development
-            ['name' => 'Flutter Apps', 'category' => 'Mobile Development', 'level' => 95, 'icon' => 'flutter', 'sort_order' => 4, 'is_featured' => true],
-            ['name' => 'Responsive & Adaptive Design', 'category' => 'Mobile Development', 'level' => 90, 'icon' => 'mobile-screen-button', 'sort_order' => 5, 'is_featured' => true],
-            ['name' => 'Bloc', 'category' => 'Mobile Development', 'level' => 90, 'icon' => 'cubes', 'sort_order' => 6, 'is_featured' => true],
-            ['name' => 'Cubit', 'category' => 'Mobile Development', 'level' => 90, 'icon' => 'cube', 'sort_order' => 7, 'is_featured' => true],
-            ['name' => 'GetX', 'category' => 'Mobile Development', 'level' => 85, 'icon' => 'bolt', 'sort_order' => 8, 'is_featured' => false],
-            ['name' => 'Provider', 'category' => 'Mobile Development', 'level' => 85, 'icon' => 'share-nodes', 'sort_order' => 9, 'is_featured' => false],
+            ['name' => 'Flutter Apps', 'category' => 'Mobile Development', 'category_ar' => 'تطوير تطبيقات الموبايل', 'level' => 95, 'icon' => 'flutter', 'sort_order' => 4, 'is_featured' => true],
+            ['name' => 'Responsive & Adaptive Design', 'category' => 'Mobile Development', 'category_ar' => 'تطوير تطبيقات الموبايل', 'level' => 90, 'icon' => 'mobile-screen-button', 'sort_order' => 5, 'is_featured' => true],
+            ['name' => 'Bloc', 'category' => 'Mobile Development', 'category_ar' => 'تطوير تطبيقات الموبايل', 'level' => 90, 'icon' => 'cubes', 'sort_order' => 6, 'is_featured' => true],
+            ['name' => 'Cubit', 'category' => 'Mobile Development', 'category_ar' => 'تطوير تطبيقات الموبايل', 'level' => 90, 'icon' => 'cube', 'sort_order' => 7, 'is_featured' => true],
+            ['name' => 'GetX', 'category' => 'Mobile Development', 'category_ar' => 'تطوير تطبيقات الموبايل', 'level' => 85, 'icon' => 'bolt', 'sort_order' => 8, 'is_featured' => false],
+            ['name' => 'Provider', 'category' => 'Mobile Development', 'category_ar' => 'تطوير تطبيقات الموبايل', 'level' => 85, 'icon' => 'share-nodes', 'sort_order' => 9, 'is_featured' => false],
 
             // 3. API & Backend Integration
-            ['name' => 'REST APIs (Dio & Http)', 'category' => 'API & Backend Integration', 'level' => 90, 'icon' => 'network-wired', 'sort_order' => 10, 'is_featured' => true],
-            ['name' => 'Firebase Authentication', 'category' => 'API & Backend Integration', 'level' => 85, 'icon' => 'fire', 'sort_order' => 11, 'is_featured' => false],
-            ['name' => 'Cloud Firestore', 'category' => 'API & Backend Integration', 'level' => 85, 'icon' => 'database', 'sort_order' => 12, 'is_featured' => false],
-            ['name' => 'Local Storage (Hive, SharedPreferences, Sqflite)', 'category' => 'API & Backend Integration', 'level' => 88, 'icon' => 'hard-drive', 'sort_order' => 13, 'is_featured' => false],
-            ['name' => 'Postman', 'category' => 'API & Backend Integration', 'level' => 85, 'icon' => 'paper-plane', 'sort_order' => 14, 'is_featured' => false],
+            ['name' => 'REST APIs (Dio & Http)', 'category' => 'API & Backend Integration', 'category_ar' => 'الربط البرمجي والـ APIs', 'level' => 90, 'icon' => 'network-wired', 'sort_order' => 10, 'is_featured' => true],
+            ['name' => 'Firebase Authentication', 'category' => 'API & Backend Integration', 'category_ar' => 'الربط البرمجي والـ APIs', 'level' => 85, 'icon' => 'fire', 'sort_order' => 11, 'is_featured' => false],
+            ['name' => 'Cloud Firestore', 'category' => 'API & Backend Integration', 'category_ar' => 'الربط البرمجي والـ APIs', 'level' => 85, 'icon' => 'database', 'sort_order' => 12, 'is_featured' => false],
+            ['name' => 'Local Storage (Hive, SharedPreferences, Sqflite)', 'category' => 'API & Backend Integration', 'category_ar' => 'الربط البرمجي والـ APIs', 'level' => 88, 'icon' => 'hard-drive', 'sort_order' => 13, 'is_featured' => false],
+            ['name' => 'Postman', 'category' => 'API & Backend Integration', 'category_ar' => 'الربط البرمجي والـ APIs', 'level' => 85, 'icon' => 'paper-plane', 'sort_order' => 14, 'is_featured' => false],
 
             // 4. Hardware & Device Features
-            ['name' => 'Google Maps', 'category' => 'Hardware & Device Features', 'level' => 85, 'icon' => 'map-location-dot', 'sort_order' => 15, 'is_featured' => false],
-            ['name' => 'Location Services', 'category' => 'Hardware & Device Features', 'level' => 85, 'icon' => 'location-crosshairs', 'sort_order' => 16, 'is_featured' => false],
-            ['name' => 'Push Notifications (FCM)', 'category' => 'Hardware & Device Features', 'level' => 85, 'icon' => 'bell', 'sort_order' => 17, 'is_featured' => false],
+            ['name' => 'Google Maps', 'category' => 'Hardware & Device Features', 'category_ar' => 'خصائص ومستشعرات الجهاز', 'level' => 85, 'icon' => 'map-location-dot', 'sort_order' => 15, 'is_featured' => false],
+            ['name' => 'Location Services', 'category' => 'Hardware & Device Features', 'category_ar' => 'خصائص ومستشعرات الجهاز', 'level' => 85, 'icon' => 'location-crosshairs', 'sort_order' => 16, 'is_featured' => false],
+            ['name' => 'Push Notifications (FCM)', 'category' => 'Hardware & Device Features', 'category_ar' => 'خصائص ومستشعرات الجهاز', 'level' => 85, 'icon' => 'bell', 'sort_order' => 17, 'is_featured' => false],
 
             // 5. Tools & Platforms
-            ['name' => 'Visual Studio Code', 'category' => 'Tools & Platforms', 'level' => 95, 'icon' => 'code', 'sort_order' => 18, 'is_featured' => false],
-            ['name' => 'Android Studio', 'category' => 'Tools & Platforms', 'level' => 90, 'icon' => 'android', 'sort_order' => 19, 'is_featured' => false],
-            ['name' => 'Git', 'category' => 'Tools & Platforms', 'level' => 90, 'icon' => 'code-branch', 'sort_order' => 20, 'is_featured' => false],
-            ['name' => 'GitHub', 'category' => 'Tools & Platforms', 'level' => 90, 'icon' => 'github', 'sort_order' => 21, 'is_featured' => true],
+            ['name' => 'Visual Studio Code', 'category' => 'Tools & Platforms', 'category_ar' => 'أدوات وبيئات التطوير', 'level' => 95, 'icon' => 'code', 'sort_order' => 18, 'is_featured' => false],
+            ['name' => 'Android Studio', 'category' => 'Tools & Platforms', 'category_ar' => 'أدوات وبيئات التطوير', 'level' => 90, 'icon' => 'android', 'sort_order' => 19, 'is_featured' => false],
+            ['name' => 'Git', 'category' => 'Tools & Platforms', 'category_ar' => 'أدوات وبيئات التطوير', 'level' => 90, 'icon' => 'code-branch', 'sort_order' => 20, 'is_featured' => false],
+            ['name' => 'GitHub', 'category' => 'Tools & Platforms', 'category_ar' => 'أدوات وبيئات التطوير', 'level' => 90, 'icon' => 'github', 'sort_order' => 21, 'is_featured' => true],
 
             // 6. Programming Languages
-            ['name' => 'Dart', 'category' => 'Programming Languages', 'level' => 95, 'icon' => 'terminal', 'sort_order' => 22, 'is_featured' => true],
-            ['name' => 'Java', 'category' => 'Programming Languages', 'level' => 80, 'icon' => 'java', 'sort_order' => 23, 'is_featured' => false],
-            ['name' => 'C++', 'category' => 'Programming Languages', 'level' => 75, 'icon' => 'microchip', 'sort_order' => 24, 'is_featured' => false],
-            ['name' => 'Python', 'category' => 'Programming Languages', 'level' => 70, 'icon' => 'python', 'sort_order' => 25, 'is_featured' => false],
+            ['name' => 'Dart', 'category' => 'Programming Languages', 'category_ar' => 'لغات البرمجة', 'level' => 95, 'icon' => 'terminal', 'sort_order' => 22, 'is_featured' => true],
+            ['name' => 'Java', 'category' => 'Programming Languages', 'category_ar' => 'لغات البرمجة', 'level' => 80, 'icon' => 'java', 'sort_order' => 23, 'is_featured' => false],
+            ['name' => 'C++', 'category' => 'Programming Languages', 'category_ar' => 'لغات البرمجة', 'level' => 75, 'icon' => 'microchip', 'sort_order' => 24, 'is_featured' => false],
+            ['name' => 'Python', 'category' => 'Programming Languages', 'category_ar' => 'لغات البرمجة', 'level' => 70, 'icon' => 'python', 'sort_order' => 25, 'is_featured' => false],
 
             // 7. Payment Integration
-            ['name' => 'Stripe Payment', 'category' => 'Payment Integration', 'level' => 85, 'icon' => 'credit-card', 'sort_order' => 26, 'is_featured' => true],
+            ['name' => 'Stripe Payment', 'category' => 'Payment Integration', 'category_ar' => 'بوابات الدفع الإلكتروني', 'level' => 85, 'icon' => 'credit-card', 'sort_order' => 26, 'is_featured' => true],
         ];
 
         foreach ($skills as $skill) {

@@ -15,10 +15,10 @@
         @csrf
         @if($workProcess->exists) @method('PUT') @endif
 
-        <div class="grid grid-cols-3 gap-4">
-            <div class="col-span-2">
-                <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">Step Title *</label>
-                <input type="text" name="title" value="{{ old('title', $workProcess->title) }}" required placeholder="e.g. Research & Requirement Analysis"
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div class="sm:col-span-2">
+                <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">Step Title (English) *</label>
+                <input type="text" name="title" value="{{ old('title', $workProcess->getRawOriginal('title')) }}" required placeholder="e.g. Planning & Analysis"
                        class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm focus:border-blue-500 focus:outline-none">
             </div>
 
@@ -30,15 +30,27 @@
         </div>
 
         <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">عنوان الخطوة (عربي)</label>
+            <input type="text" name="title_ar" dir="rtl" value="{{ old('title_ar', $workProcess->title_ar) }}" placeholder="مثال: التخطيط وتحليل المتطلبات"
+                   class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm focus:border-blue-500 focus:outline-none">
+        </div>
+
+        <div>
             <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">Step Icon</label>
             <input type="text" name="icon" value="{{ old('icon', $workProcess->icon) }}" placeholder="e.g. search, design_services, architecture, api, extension, bug_report"
                    class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm focus:border-blue-500 focus:outline-none">
         </div>
 
         <div>
-            <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">Detailed Description *</label>
-            <textarea name="description" rows="4" required placeholder="What happens during this phase..."
-                      class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm focus:border-blue-500 focus:outline-none">{{ old('description', $workProcess->description) }}</textarea>
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">Description (English) *</label>
+            <textarea name="description" rows="3" required placeholder="What happens during this phase..."
+                      class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm focus:border-blue-500 focus:outline-none">{{ old('description', $workProcess->getRawOriginal('description')) }}</textarea>
+        </div>
+
+        <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">الشرح التفصيلي (عربي)</label>
+            <textarea name="description_ar" dir="rtl" rows="3" placeholder="تفاصيل وخطوات هذه المرحلة بالعربية..."
+                      class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm focus:border-blue-500 focus:outline-none">{{ old('description_ar', $workProcess->description_ar) }}</textarea>
         </div>
 
         <div class="pt-4 border-t border-slate-200 dark:border-slate-800 flex justify-end">
@@ -49,4 +61,3 @@
     </form>
 </div>
 @endsection
-

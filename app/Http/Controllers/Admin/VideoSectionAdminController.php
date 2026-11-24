@@ -52,8 +52,11 @@ class VideoSectionAdminController extends Controller
 
         $videoSection->fill([
             'badge' => $data['badge'] ?? null,
+            'badge_ar' => $data['badge_ar'] ?? null,
             'title' => $data['title'],
+            'title_ar' => $data['title_ar'] ?? null,
             'subtitle' => $data['subtitle'] ?? null,
+            'subtitle_ar' => $data['subtitle_ar'] ?? null,
             'is_active' => (bool) ($data['is_active'] ?? false),
             'video_path' => $data['video_path'] ?? $videoSection->video_path ?? 'videos/intro.mp4',
             'cover_image' => $data['cover_image'] ?? $videoSection->cover_image,
@@ -72,7 +75,9 @@ class VideoSectionAdminController extends Controller
             $attributes = [
                 'video_section_id' => $videoSection->id,
                 'title' => $itemData['title'],
+                'title_ar' => $itemData['title_ar'] ?? null,
                 'value' => $itemData['value'] ?? null,
+                'value_ar' => $itemData['value_ar'] ?? null,
                 'url' => $itemData['url'] ?? null,
                 'icon' => $itemData['icon'] ?? 'fa-solid fa-link',
                 'badge' => $itemData['badge'] ?? null,

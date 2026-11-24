@@ -20,9 +20,9 @@
                          roles: [
                              '{{ addslashes($profile?->role ?? "Flutter Developer") }}',
                              @if(!empty($profile?->tagline)) '{{ addslashes($profile->tagline) }}', @endif
-                             'Mobile App Engineer',
-                             'Clean Architecture Enthusiast',
-                             'UI/UX Implementer'
+                             '{{ app()->getLocale() === "ar" ? "مهندس تطبيقات الموبايل" : "Mobile App Engineer" }}',
+                              '{{ app()->getLocale() === "ar" ? "شغوف بالـ Clean Architecture" : "Clean Architecture Enthusiast" }}',
+                              '{{ app()->getLocale() === "ar" ? "خبير في بناء وتطوير الواجهات" : "UI/UX Implementer" }}'
                          ],
                          current: '',
                          rIdx: 0,
@@ -88,9 +88,9 @@
                         </a>
                     @endif
                     @if($profile && $profile->phone)
-                        <a href="tel:{{ $profile->phone }}" class="w-9 h-9 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center justify-center hover:text-cyan-600 dark:hover:text-cyan-400 hover:border-cyan-400 dark:hover:border-cyan-500/40 shadow-sm transition" title="{{ $profile->phone }}">
+                        <button type="button" @click="$dispatch('open-modal', 'quick-contact-modal')" class="w-9 h-9 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center justify-center hover:text-cyan-600 dark:hover:text-cyan-400 hover:border-cyan-400 dark:hover:border-cyan-500/40 shadow-sm transition" title="{{ $profile->phone }}">
                             <i class="fa-solid fa-phone text-sm"></i>
-                        </a>
+                        </button>
                     @endif
                 </div>
             </div>
@@ -364,7 +364,9 @@
                 @if($profile?->phone)
                     <div class="p-3 bg-slate-50 dark:bg-slate-950/80 rounded-xl border border-slate-200 dark:border-slate-800">
                         <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500 block">{{ __('Phone') }}</span>
-                        <a href="tel:{{ $profile->phone }}" class="text-xs text-emerald-600 dark:text-emerald-400 hover:underline font-semibold block mt-0.5">{{ $profile->phone }}</a>
+                        <button type="button" @click="$dispatch('open-modal', 'quick-contact-modal')" class="text-xs text-emerald-600 dark:text-emerald-400 hover:underline font-semibold block mt-0.5 mx-auto">
+                            {{ $profile->phone }}
+                        </button>
                     </div>
                 @endif
                 @if($profile?->location)
