@@ -23,7 +23,9 @@ class SkillAdminController extends Controller
 
     public function store(StoreSkillRequest $request)
     {
-        Skill::create($request->validated());
+        $data = $request->validated();
+        $data['level'] = $data['level'] ?? 100;
+        Skill::create($data);
 
         return redirect()->route('admin.skills.index')->with('success', 'Skill added.');
     }
@@ -35,7 +37,9 @@ class SkillAdminController extends Controller
 
     public function update(UpdateSkillRequest $request, Skill $skill)
     {
-        $skill->update($request->validated());
+        $data = $request->validated();
+        $data['level'] = $data['level'] ?? ($skill->level ?? 100);
+        $skill->update($data);
 
         return redirect()->route('admin.skills.index')->with('success', 'Skill updated.');
     }

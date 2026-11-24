@@ -192,27 +192,23 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             @foreach($skills as $category => $skillGroup)
-                <div class="bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800/80 rounded-3xl p-6 flex flex-col justify-between shadow-sm transition-colors">
+                <div class="bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800/80 rounded-3xl p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition">
                     <div>
-                        <h3 class="text-base font-bold text-slate-900 dark:text-white mb-5 flex items-center justify-between">
-                            <span>{{ $category ?? 'Tools & Frameworks' }}</span>
-                            <span class="text-xs text-blue-600 dark:text-blue-400 font-mono">{{ count($skillGroup) }} items</span>
+                        <h3 class="text-base font-bold text-slate-900 dark:text-white mb-4 flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800/80">
+                            <span class="flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span>
+                                <span>{{ $category ?? __('Tools & Frameworks') }}</span>
+                            </span>
+                            <span class="text-xs text-blue-600 dark:text-blue-400 font-mono">{{ count($skillGroup) }} {{ __('skills') }}</span>
                         </h3>
-                        <div class="space-y-4">
+                        <div class="flex flex-wrap gap-2.5 pt-1">
                             @foreach($skillGroup as $s)
-                                <div>
-                                    <div class="flex justify-between text-xs font-semibold mb-1">
-                                        <span class="text-slate-700 dark:text-slate-200 flex items-center gap-1.5">
-                                            <span>{{ $s->name }}</span>
-                                            @if($s->is_featured)
-                                                <i class="fa-solid fa-star text-[10px] text-amber-500 dark:text-amber-400"></i>
-                                            @endif
-                                        </span>
-                                        <span class="text-slate-400 dark:text-slate-500">{{ $s->level }}%</span>
-                                    </div>
-                                    <div class="w-full bg-slate-100 dark:bg-slate-900 h-2 rounded-full overflow-hidden">
-                                        <div class="bg-gradient-to-r from-blue-600 to-blue-400 h-full rounded-full" style="width: {{ $s->level }}%"></div>
-                                    </div>
+                                <div class="px-3.5 py-2 rounded-xl border transition flex items-center gap-2 group {{ $s->is_featured ? 'bg-blue-50/70 dark:bg-blue-950/40 border-blue-200 dark:border-blue-800/80 text-blue-900 dark:text-blue-200 font-bold shadow-sm' : 'bg-slate-50 dark:bg-slate-900/60 border-slate-200/80 dark:border-slate-800 text-slate-800 dark:text-slate-200 hover:border-blue-400 dark:hover:border-blue-500 hover:-translate-y-0.5' }}">
+                                    <i class="{{ $s->fa_icon_class }} text-sm text-blue-600 dark:text-blue-400 group-hover:scale-110 transition duration-200"></i>
+                                    <span class="text-xs tracking-tight">{{ $s->name }}</span>
+                                    @if($s->is_featured)
+                                        <i class="fa-solid fa-star text-[10px] text-amber-500 ml-0.5" title="{{ __('Core Skill') }}"></i>
+                                    @endif
                                 </div>
                             @endforeach
                         </div>
