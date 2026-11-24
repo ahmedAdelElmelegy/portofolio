@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full">
+<html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}" class="h-full">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,9 +36,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Urbanist:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Urbanist', sans-serif; }
+        body { font-family: {{ app()->getLocale() === 'ar' ? "'Cairo', sans-serif" : "'Urbanist', sans-serif" }}; }
         [x-cloak] { display: none !important; }
     </style>
 </head>
@@ -82,47 +82,47 @@
             <nav class="flex-1 px-4 py-5 space-y-1.5 overflow-y-auto">
                 <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-semibold transition {{ request()->routeIs('admin.dashboard') ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-900' }}">
                     <i class="fa-solid fa-chart-pie w-5"></i>
-                    <span>Dashboard</span>
+                    <span>{{ __('Dashboard') }}</span>
                 </a>
 
-                <div class="pt-3 pb-1.5 px-3 text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">Portfolio Modules</div>
+                <div class="pt-3 pb-1.5 px-3 text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">{{ __('Portfolio Modules') }}</div>
 
                 <a href="{{ route('admin.profile.edit') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-semibold transition {{ request()->routeIs('admin.profile.*') ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-900' }}">
                     <i class="fa-solid fa-user w-5"></i>
-                    <span>Profile Info</span>
+                    <span>{{ __('Profile Info') }}</span>
                 </a>
 
                 <a href="{{ route('admin.skills.index') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-semibold transition {{ request()->routeIs('admin.skills.*') ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-900' }}">
                     <i class="fa-solid fa-bolt w-5"></i>
-                    <span>Skills</span>
+                    <span>{{ __('Skills') }}</span>
                 </a>
 
                 <a href="{{ route('admin.experiences.index') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-semibold transition {{ request()->routeIs('admin.experiences.*') ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-900' }}">
                     <i class="fa-solid fa-briefcase w-5"></i>
-                    <span>Experience & Edu</span>
+                    <span>{{ __('Experience & Edu') }}</span>
                 </a>
 
                 <a href="{{ route('admin.work-processes.index') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-semibold transition {{ request()->routeIs('admin.work-processes.*') ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-900' }}">
                     <i class="fa-solid fa-list-check w-5"></i>
-                    <span>Work Process</span>
+                    <span>{{ __('Work Process') }}</span>
                 </a>
 
                 <a href="{{ route('admin.projects.index') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-semibold transition {{ request()->routeIs('admin.projects.*') ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-900' }}">
                     <i class="fa-solid fa-folder-open w-5"></i>
-                    <span>Projects</span>
+                    <span>{{ __('Projects') }}</span>
                 </a>
 
                 <a href="{{ route('admin.video-section.edit') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-semibold transition {{ request()->routeIs('admin.video-section.*') ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-900' }}">
                     <i class="fa-solid fa-circle-play w-5"></i>
-                    <span>Video Showcase</span>
+                    <span>{{ __('Video Showcase') }}</span>
                 </a>
 
-                <div class="pt-3 pb-1.5 px-3 text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">Inbox & Site</div>
+                <div class="pt-3 pb-1.5 px-3 text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">{{ __('Inbox & Site') }}</div>
 
                 <a href="{{ route('admin.contact-messages.index') }}" class="flex items-center justify-between px-3.5 py-2.5 rounded-lg text-sm font-semibold transition {{ request()->routeIs('admin.contact-messages.*') ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-900' }}">
                     <div class="flex items-center gap-3">
                         <i class="fa-solid fa-envelope w-5"></i>
-                        <span>Messages</span>
+                        <span>{{ __('Messages') }}</span>
                     </div>
                     @php $unreadCount = \App\Models\ContactMessage::unread()->count(); @endphp
                     @if($unreadCount > 0)
@@ -132,13 +132,13 @@
 
                 <a href="{{ route('admin.settings.edit') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-semibold transition {{ request()->routeIs('admin.settings.*') ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-900' }}">
                     <i class="fa-solid fa-gear w-5"></i>
-                    <span>Settings</span>
+                    <span>{{ __('Settings') }}</span>
                 </a>
 
                 <div class="pt-4 mt-4 border-t border-slate-200 dark:border-slate-800/80">
                     <a href="{{ route('home') }}" target="_blank" class="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-semibold text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/10 transition">
                         <i class="fa-solid fa-arrow-up-right-from-square w-5"></i>
-                        <span>View Public Portfolio</span>
+                        <span>{{ __('View Public Portfolio') }}</span>
                     </a>
                 </div>
             </nav>
@@ -155,6 +155,12 @@
                     </div>
                 </div>
                 <div class="flex items-center gap-1">
+                    <a href="{{ route('locale.switch', app()->getLocale() === 'ar' ? 'en' : 'ar') }}"
+                       title="{{ app()->getLocale() === 'ar' ? 'Switch to English' : 'التحويل للعربية' }}"
+                       class="px-2 py-1.5 text-xs font-bold text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white transition rounded-lg hover:bg-slate-200 dark:hover:bg-slate-900 flex items-center gap-1">
+                        <i class="fa-solid fa-globe text-blue-500"></i>
+                        <span>{{ app()->getLocale() === 'ar' ? 'EN' : 'عربي' }}</span>
+                    </a>
                     <button @click="toggleTheme()" type="button" aria-label="Toggle theme" title="Toggle Light / Dark mode"
                             class="p-2 text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white transition rounded-lg hover:bg-slate-200 dark:hover:bg-slate-900">
                         <i class="fa-solid fa-sun text-amber-500" x-show="!darkMode"></i>
@@ -163,7 +169,7 @@
                     <form action="{{ route('admin.logout') }}" method="POST">
                         @csrf
                         <button type="submit" title="Logout" class="p-2 text-slate-400 hover:text-red-500 transition rounded-lg hover:bg-slate-200 dark:hover:bg-slate-900">
-                            <i class="fa-solid fa-right-from-bracket"></i>
+                            <i class="fa-solid fa-right-from-bracket rtl:rotate-180"></i>
                         </button>
                     </form>
                 </div>
@@ -179,6 +185,10 @@
                 </button>
                 <span class="font-bold text-slate-900 dark:text-white text-base">Portfolio Admin</span>
                 <div class="flex items-center gap-2">
+                    <a href="{{ route('locale.switch', app()->getLocale() === 'ar' ? 'en' : 'ar') }}"
+                       class="px-2 py-1 rounded-md text-xs font-bold text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-900">
+                        {{ app()->getLocale() === 'ar' ? 'EN' : 'عربي' }}
+                    </a>
                     <button @click="toggleTheme()" type="button" aria-label="Toggle theme" class="text-slate-600 dark:text-slate-400 p-2">
                         <i class="fa-solid fa-sun text-amber-500" x-show="!darkMode"></i>
                         <i class="fa-solid fa-moon text-blue-400" x-show="darkMode" x-cloak></i>

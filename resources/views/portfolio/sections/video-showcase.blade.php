@@ -36,7 +36,7 @@
                         <!-- Top status pill -->
                         <div class="absolute top-4 left-4 z-20 flex items-center gap-2 px-3 py-1 rounded-full bg-white/80 dark:bg-slate-950/80 backdrop-blur-md border border-slate-200 dark:border-slate-700/60 text-[11px] font-bold text-slate-800 dark:text-slate-200 shadow-md">
                             <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
-                            <span>Interactive Video</span>
+                            <span>{{ __('Interactive Video') }}</span>
                         </div>
 
                         <div class="relative rounded-2xl overflow-hidden bg-slate-900 aspect-[9/16] sm:aspect-[4/5] md:aspect-[3/4] max-h-[500px] flex items-center justify-center">
@@ -49,7 +49,7 @@
                             @else
                                 <div class="text-slate-400 text-center p-6">
                                     <i class="fa-solid fa-video text-4xl mb-2 block"></i>
-                                    <span class="text-xs">No video assigned</span>
+                                    <span class="text-xs">{{ __('No video assigned') }}</span>
                                 </div>
                             @endif
                         </div>
@@ -61,9 +61,9 @@
             <div class="lg:col-span-7 space-y-4">
                 <div class="flex items-center justify-between mb-2">
                     <h3 class="text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                        Featured Profiles & Direct Channels
+                        {{ __('Featured Profiles & Direct Channels') }}
                     </h3>
-                    <span class="text-xs text-blue-600 dark:text-blue-400 font-medium">Click to connect</span>
+                    <span class="text-xs text-blue-600 dark:text-blue-400 font-medium">{{ __('Click to connect') }}</span>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
@@ -125,10 +125,10 @@
                 <div class="pt-3 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-500 dark:text-slate-400 border-t border-slate-200 dark:border-slate-800/60">
                     <span class="flex items-center gap-2">
                         <i class="fa-solid fa-circle-check text-emerald-500 dark:text-emerald-400"></i>
-                        <span>Verified and active channels</span>
+                        <span>{{ __('Verified and active channels') }}</span>
                     </span>
                     <a href="#contact" class="inline-flex items-center gap-1.5 text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300 font-semibold transition">
-                        <span>Send a direct message</span>
+                        <span>{{ __('Send a direct message') }}</span>
                         <i class="fa-solid fa-arrow-right text-[10px]"></i>
                     </a>
                 </div>

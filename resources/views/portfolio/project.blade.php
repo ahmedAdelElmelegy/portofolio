@@ -7,8 +7,8 @@
 <main class="py-12 md:py-20 max-w-5xl mx-auto px-6 space-y-12">
     <!-- Back button -->
     <a href="{{ route('home') }}#projects" class="inline-flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition">
-        <i class="fa-solid fa-arrow-left"></i>
-        <span>Back to all projects</span>
+        <i class="fa-solid fa-arrow-left rtl:rotate-180"></i>
+        <span>{{ __('Back to all projects') }}</span>
     </a>
 
     <!-- Project Header -->
@@ -16,7 +16,7 @@
         <div class="flex items-center gap-3">
             <h1 class="text-4xl sm:text-5xl font-black text-slate-900 dark:text-white">{{ $project->name }}</h1>
             @if($project->is_featured)
-                <span class="px-3 py-1 rounded-full text-xs font-bold bg-amber-500/10 dark:bg-amber-500/20 text-amber-600 dark:text-amber-400 border border-amber-500/30">Featured Project</span>
+                <span class="px-3 py-1 rounded-full text-xs font-bold bg-amber-500/10 dark:bg-amber-500/20 text-amber-600 dark:text-amber-400 border border-amber-500/30">{{ __('Featured Project') }}</span>
             @endif
         </div>
         <p class="text-lg text-slate-600 dark:text-slate-300 leading-relaxed max-w-3xl">{{ $project->short_description }}</p>
@@ -26,13 +26,13 @@
             @if($project->github_url)
                 <a href="{{ $project->github_url }}" target="_blank" class="px-6 py-2.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-900 dark:hover:bg-slate-850 border border-slate-300 dark:border-slate-800 text-slate-800 dark:text-white font-bold text-xs rounded-xl transition flex items-center gap-2">
                     <i class="fa-brands fa-github text-sm"></i>
-                    <span>GitHub Repository</span>
+                    <span>{{ __('GitHub Repository') }}</span>
                 </a>
             @endif
             @if($project->app_url)
                 <a href="{{ $project->app_url }}" target="_blank" class="px-6 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs rounded-xl transition flex items-center gap-2 shadow-lg shadow-blue-500/25">
                     <i class="fa-solid fa-link text-xs"></i>
-                    <span>Live App / APK Download</span>
+                    <span>{{ __('Live App / APK Download') }}</span>
                 </a>
             @endif
         </div>
@@ -42,7 +42,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         <!-- Tech Stack -->
         <div class="bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800/80 rounded-3xl p-7 shadow-sm transition-colors">
-            <h2 class="text-sm font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 mb-4">Technologies & Architecture</h2>
+            <h2 class="text-sm font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 mb-4">{{ __('Technologies & Architecture') }}</h2>
             <div class="flex flex-wrap gap-2">
                 @forelse($project->technologies as $t)
                     <span class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-white border border-slate-200 dark:border-slate-800">
@@ -56,7 +56,7 @@
 
         <!-- Features list -->
         <div class="bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800/80 rounded-3xl p-7 shadow-sm transition-colors">
-            <h2 class="text-sm font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 mb-4">Core Application Features</h2>
+            <h2 class="text-sm font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 mb-4">{{ __('Core Application Features') }}</h2>
             <ul class="space-y-2 text-xs text-slate-600 dark:text-slate-300">
                 @forelse($project->features as $f)
                     <li class="flex items-start gap-2.5">
@@ -72,7 +72,7 @@
 
     <!-- Detailed Description -->
     <div class="bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800/80 rounded-3xl p-8 space-y-4 shadow-sm transition-colors">
-        <h2 class="text-xl font-bold text-slate-900 dark:text-white">Project Overview & Problem Solved</h2>
+        <h2 class="text-xl font-bold text-slate-900 dark:text-white">{{ __('Project Overview & Problem Solved') }}</h2>
         <div class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed whitespace-pre-line">
             {{ $project->description }}
         </div>
@@ -81,7 +81,7 @@
     <!-- Screenshots Gallery -->
     @if($project->images->isNotEmpty())
         <div class="space-y-6">
-            <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Screenshot Gallery ({{ $project->images->count() }})</h2>
+            <h2 class="text-2xl font-bold text-slate-900 dark:text-white">{{ __('Screenshot Gallery') }} ({{ $project->images->count() }})</h2>
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                 @foreach($project->images as $img)
                     <a href="{{ $img->image_url }}" target="_blank" class="block rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 hover:border-blue-500/50 transition group shadow-sm">

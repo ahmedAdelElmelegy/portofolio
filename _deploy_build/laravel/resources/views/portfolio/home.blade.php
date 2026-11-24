@@ -8,7 +8,7 @@
             <!-- Left Headline -->
             <div class="flex-1 space-y-6 text-center lg:text-left">
                 <span class="inline-block px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-600 dark:text-blue-400 text-xs font-bold tracking-wider uppercase">
-                    Hello, It's Me
+                    {{ __('Hello, It\'s Me') }}
                 </span>
                 <h1 class="text-4xl sm:text-6xl font-black text-slate-900 dark:text-white tracking-tight leading-none">
                     {{ $profile->full_name ?? 'Ahmed Adel' }}
@@ -48,7 +48,7 @@
                              }, 100);
                          }
                      }">
-                    <span>And I'm a </span>
+                    <span>{{ __('And I\'m a') }} </span>
                     <span class="text-blue-600 dark:text-blue-500" x-text="current"></span>
                     <span class="inline-block w-1 h-7 bg-blue-600 dark:bg-blue-500 align-middle animate-pulse ml-0.5"></span>
                 </div>
@@ -60,20 +60,18 @@
                 <!-- Actions -->
                 <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
                     <a href="#projects" class="px-8 py-3.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold text-sm rounded-xl transition shadow-xl shadow-amber-500/20 flex items-center gap-2">
-                        <span>View My Work</span>
-                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                        <span>{{ __('View My Work') }}</span>
+                        <i class="fa-solid fa-arrow-right rtl:rotate-180 text-xs"></i>
                     </a>
-                    @if($profile && $profile->cv_file)
-                        <a href="{{ $profile->cv_url }}" target="_blank" class="px-8 py-3.5 bg-white hover:bg-slate-100 dark:bg-slate-900 dark:hover:bg-slate-800 border border-slate-300 dark:border-slate-700/80 text-slate-800 dark:text-white font-bold text-sm rounded-xl transition shadow-sm flex items-center gap-2">
-                            <i class="fa-solid fa-file-arrow-down"></i>
-                            <span>Download CV</span>
-                        </a>
-                    @endif
+                    <a href="{{ $profile?->cv_url ?? 'https://drive.google.com/drive/u/0/mobile/folders/1Du__WLyTM0zhOU2ZfzEAYIz5cjqcjS0Q?hl=ar&sort=13&direction=a' }}" target="_blank" class="px-8 py-3.5 bg-white hover:bg-slate-100 dark:bg-slate-900 dark:hover:bg-slate-800 border border-slate-300 dark:border-slate-700/80 text-slate-800 dark:text-white font-bold text-sm rounded-xl transition shadow-sm flex items-center gap-2">
+                        <i class="fa-solid fa-file-arrow-down text-blue-500"></i>
+                        <span>{{ __('Download CV') }}</span>
+                    </a>
                 </div>
 
                 <!-- Social links -->
                 <div class="flex items-center justify-center lg:justify-start gap-3 pt-4 text-slate-500 dark:text-slate-400">
-                    <span class="text-xs uppercase font-bold text-slate-400 dark:text-slate-600">Connect:</span>
+                    <span class="text-xs uppercase font-bold text-slate-400 dark:text-slate-600">{{ __('Connect:') }}</span>
                     @if($profile && $profile->github_url)
                         <a href="{{ $profile->github_url }}" target="_blank" class="w-9 h-9 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center justify-center hover:text-slate-900 dark:hover:text-white hover:border-slate-400 dark:hover:border-slate-700 shadow-sm transition" title="GitHub">
                             <i class="fa-brands fa-github text-sm"></i>
@@ -124,8 +122,8 @@
     <!-- About Section -->
     <section id="about" class="max-w-7xl mx-auto px-6">
         <div class="text-center max-w-2xl mx-auto mb-16">
-            <span class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">About Me</span>
-            <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mt-2">Background & Experience</h2>
+            <span class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">{{ __('About Me') }}</span>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mt-2">{{ __('Background & Experience') }}</h2>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
@@ -135,7 +133,7 @@
                     <div class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center">
                         <i class="fa-solid fa-briefcase"></i>
                     </div>
-                    <span>Work Experience</span>
+                    <span>{{ __('Work Experience') }}</span>
                 </h3>
                 <div class="space-y-8 border-l-2 border-slate-200 dark:border-slate-800 pl-6 ml-4">
                     @forelse($experiences['work'] ?? [] as $work)
@@ -162,7 +160,7 @@
                     <div class="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center">
                         <i class="fa-solid fa-graduation-cap"></i>
                     </div>
-                    <span>Education & Degrees</span>
+                    <span>{{ __('Education & Degrees') }}</span>
                 </h3>
                 <div class="space-y-8 border-l-2 border-slate-200 dark:border-slate-800 pl-6 ml-4">
                     @forelse($experiences['education'] ?? [] as $edu)
@@ -188,8 +186,8 @@
     <!-- Skills Section -->
     <section id="skills" class="max-w-7xl mx-auto px-6">
         <div class="text-center max-w-2xl mx-auto mb-16">
-            <span class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">Skills & Tech Stack</span>
-            <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mt-2">Technologies I Excel At</h2>
+            <span class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">{{ __('Skills & Tech Stack') }}</span>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mt-2">{{ __('Technologies I Excel At') }}</h2>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -227,9 +225,9 @@
     <!-- Work Process Section -->
     <section id="work-process" class="max-w-7xl mx-auto px-6">
         <div class="text-center max-w-2xl mx-auto mb-16">
-            <span class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">Development Methodology</span>
-            <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mt-2">My Work Process</h2>
-            <p class="text-slate-600 dark:text-slate-400 text-sm mt-2">How I deliver robust, scalable, and user-centric mobile applications from concept to deployment.</p>
+            <span class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">{{ __('Development Methodology') }}</span>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mt-2">{{ __('My Work Process') }}</h2>
+            <p class="text-slate-600 dark:text-slate-400 text-sm mt-2">{{ __('How I deliver robust, scalable, and user-centric mobile applications from concept to deployment.') }}</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -248,9 +246,9 @@
     <!-- Projects Section -->
     <section id="projects" class="max-w-7xl mx-auto px-6">
         <div class="text-center max-w-2xl mx-auto mb-16">
-            <span class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">Recent Projects</span>
-            <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mt-2">Featured Mobile Applications</h2>
-            <p class="text-slate-600 dark:text-slate-400 text-sm mt-2">Browse through production apps developed with clean architecture and modern Flutter stacks.</p>
+            <span class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">{{ __('Recent Projects') }}</span>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mt-2">{{ __('Featured Mobile Applications') }}</h2>
+            <p class="text-slate-600 dark:text-slate-400 text-sm mt-2">{{ __('Browse through production apps developed with clean architecture and modern Flutter stacks.') }}</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -286,19 +284,19 @@
                             @if($proj->github_url)
                                 <a href="{{ $proj->github_url }}" target="_blank" class="text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white flex items-center gap-1.5 transition">
                                     <i class="fa-brands fa-github text-sm"></i>
-                                    <span>GitHub</span>
+                                    <span>{{ __('GitHub') }}</span>
                                 </a>
                             @endif
                             @if($proj->app_url)
                                 <a href="{{ $proj->app_url }}" target="_blank" class="text-slate-600 hover:text-amber-600 dark:text-slate-400 dark:hover:text-amber-400 flex items-center gap-1.5 transition">
                                     <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
-                                    <span>Demo / APK</span>
+                                    <span>{{ __('Demo / APK') }}</span>
                                 </a>
                             @endif
                         </div>
                         <a href="{{ route('projects.show', $proj->slug) }}" class="text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1">
-                            <span>Project Details</span>
-                            <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                            <span>{{ __('Project Details') }}</span>
+                            <i class="fa-solid fa-chevron-right rtl:rotate-180 text-[10px]"></i>
                         </a>
                     </div>
                 </div>
@@ -310,9 +308,9 @@
     <section id="contact" class="max-w-4xl mx-auto px-6">
         <div class="bg-white dark:bg-gradient-to-br dark:from-slate-950 dark:via-slate-900 dark:to-blue-950/40 border border-slate-200 dark:border-slate-800 rounded-3xl p-8 md:p-12 shadow-xl dark:shadow-2xl transition-colors">
             <div class="text-center max-w-xl mx-auto mb-10">
-                <span class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">Get in Touch</span>
-                <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white mt-1">Let's Build Something Great</h2>
-                <p class="text-slate-600 dark:text-slate-400 text-xs mt-2">Have a project in mind, need a mobile app, or looking to hire? Drop me a message.</p>
+                <span class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">{{ __('Get in Touch') }}</span>
+                <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white mt-1">{{ __('Let\'s Build Something Great') }}</h2>
+                <p class="text-slate-600 dark:text-slate-400 text-xs mt-2">{{ __('Have a project in mind, need a mobile app, or looking to hire? Drop me a message.') }}</p>
             </div>
 
             @if(session('success'))
@@ -325,32 +323,32 @@
                 @csrf
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div>
-                        <label class="block text-xs font-bold uppercase text-slate-700 dark:text-slate-300 mb-2">Your Name *</label>
+                        <label class="block text-xs font-bold uppercase text-slate-700 dark:text-slate-300 mb-2">{{ __('Your Name *') }}</label>
                         <input type="text" name="name" required placeholder="John Doe"
                                class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm focus:border-blue-500 focus:outline-none focus:bg-white dark:focus:bg-slate-950 transition">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold uppercase text-slate-700 dark:text-slate-300 mb-2">Email Address *</label>
+                        <label class="block text-xs font-bold uppercase text-slate-700 dark:text-slate-300 mb-2">{{ __('Email Address *') }}</label>
                         <input type="email" name="email" required placeholder="john@example.com"
                                class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm focus:border-blue-500 focus:outline-none focus:bg-white dark:focus:bg-slate-950 transition">
                     </div>
                 </div>
 
                 <div>
-                    <label class="block text-xs font-bold uppercase text-slate-700 dark:text-slate-300 mb-2">Subject</label>
+                    <label class="block text-xs font-bold uppercase text-slate-700 dark:text-slate-300 mb-2">{{ __('Subject') }}</label>
                     <input type="text" name="subject" placeholder="Project Inquiry / Job Opportunity"
                            class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm focus:border-blue-500 focus:outline-none focus:bg-white dark:focus:bg-slate-950 transition">
                 </div>
 
                 <div>
-                    <label class="block text-xs font-bold uppercase text-slate-700 dark:text-slate-300 mb-2">Message *</label>
+                    <label class="block text-xs font-bold uppercase text-slate-700 dark:text-slate-300 mb-2">{{ __('Message *') }}</label>
                     <textarea name="message" rows="5" required placeholder="Tell me about your project or inquiry..."
                               class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm focus:border-blue-500 focus:outline-none focus:bg-white dark:focus:bg-slate-950 transition"></textarea>
                 </div>
 
                 <div class="pt-2 text-center">
                     <button type="submit" class="px-10 py-3.5 bg-blue-600 hover:bg-blue-500 text-white font-extrabold text-sm rounded-xl transition shadow-xl shadow-blue-500/30">
-                        Send Message
+                        {{ __('Send Message') }}
                     </button>
                 </div>
             </form>
@@ -359,26 +357,26 @@
             <div class="mt-10 pt-8 border-t border-slate-200 dark:border-slate-800/80 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-center">
                 @if($profile?->email)
                     <div class="p-3 bg-slate-50 dark:bg-slate-950/80 rounded-xl border border-slate-200 dark:border-slate-800">
-                        <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500 block">Email</span>
+                        <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500 block">{{ __('Email') }}</span>
                         <a href="mailto:{{ $profile->email }}" class="text-xs text-blue-600 dark:text-blue-400 hover:underline font-semibold truncate block mt-0.5">{{ $profile->email }}</a>
                     </div>
                 @endif
                 @if($profile?->phone)
                     <div class="p-3 bg-slate-50 dark:bg-slate-950/80 rounded-xl border border-slate-200 dark:border-slate-800">
-                        <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500 block">Phone</span>
+                        <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500 block">{{ __('Phone') }}</span>
                         <a href="tel:{{ $profile->phone }}" class="text-xs text-emerald-600 dark:text-emerald-400 hover:underline font-semibold block mt-0.5">{{ $profile->phone }}</a>
                     </div>
                 @endif
                 @if($profile?->location)
                     <div class="p-3 bg-slate-50 dark:bg-slate-950/80 rounded-xl border border-slate-200 dark:border-slate-800">
-                        <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500 block">Location</span>
+                        <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500 block">{{ __('Location') }}</span>
                         <span class="text-xs text-slate-700 dark:text-slate-300 font-semibold block mt-0.5">{{ $profile->location }}</span>
                     </div>
                 @endif
                 @if($profile?->whatsapp)
                     <div class="p-3 bg-slate-50 dark:bg-slate-950/80 rounded-xl border border-slate-200 dark:border-slate-800">
-                        <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500 block">WhatsApp</span>
-                        <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $profile->whatsapp) }}" target="_blank" class="text-xs text-green-600 dark:text-green-400 hover:underline font-semibold block mt-0.5">Chat on WhatsApp</a>
+                        <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500 block">{{ __('WhatsApp') }}</span>
+                        <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $profile->whatsapp) }}" target="_blank" class="text-xs text-green-600 dark:text-green-400 hover:underline font-semibold block mt-0.5">{{ __('Chat on WhatsApp') }}</a>
                     </div>
                 @endif
             </div>

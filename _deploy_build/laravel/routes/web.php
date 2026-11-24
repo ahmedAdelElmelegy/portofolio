@@ -20,6 +20,14 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/projects/{slug}', [ProjectWebController::class, 'show'])->name('projects.show');
 Route::post('/contact', [ContactWebController::class, 'store'])->name('contact.store')->middleware('throttle:5,1');
 
+// ─── Locale Switcher ─────────────────────────────────────────────────────
+Route::get('/locale/{locale}', function (string $locale) {
+    if (in_array($locale, ['en', 'ar'])) {
+        session(['locale' => $locale]);
+    }
+    return redirect()->back();
+})->name('locale.switch');
+
 // ─── Login Alias ───────────────────────────────────────────────────────────
 Route::get('/login', [AdminAuthController::class, 'showLogin'])->name('login');
 

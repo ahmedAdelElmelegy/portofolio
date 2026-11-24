@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,9 +42,9 @@
     <!-- Google Fonts: Urbanist -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Urbanist:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Urbanist', sans-serif; }
+        body { font-family: {{ app()->getLocale() === 'ar' ? "'Cairo', sans-serif" : "'Urbanist', sans-serif" }}; }
         [x-cloak] { display: none !important; }
     </style>
 </head>
@@ -80,17 +80,25 @@
 
             <!-- Desktop Nav Items -->
             <nav class="hidden md:flex items-center gap-8 text-sm font-semibold">
-                <a href="#hero" class="text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400 transition">Home</a>
-                <a href="#video-showcase" class="text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400 transition">Showcase</a>
-                <a href="#about" class="text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400 transition">About</a>
-                <a href="#skills" class="text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400 transition">Skills</a>
-                <a href="#work-process" class="text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400 transition">Process</a>
-                <a href="#projects" class="text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400 transition">Projects</a>
-                <a href="#contact" class="text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400 transition">Contact</a>
+                <a href="#hero" class="text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400 transition">{{ __('Home') }}</a>
+                <a href="#video-showcase" class="text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400 transition">{{ __('Showcase') }}</a>
+                <a href="#about" class="text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400 transition">{{ __('About') }}</a>
+                <a href="#skills" class="text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400 transition">{{ __('Skills') }}</a>
+                <a href="#work-process" class="text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400 transition">{{ __('Process') }}</a>
+                <a href="#projects" class="text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400 transition">{{ __('Projects') }}</a>
+                <a href="#contact" class="text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400 transition">{{ __('Contact') }}</a>
             </nav>
 
-            <!-- Theme Toggle & CTA -->
+            <!-- Language Switcher, Theme Toggle & CTA -->
             <div class="hidden md:flex items-center gap-3">
+                <!-- Language Switcher -->
+                <a href="{{ route('locale.switch', app()->getLocale() === 'ar' ? 'en' : 'ar') }}"
+                   title="{{ app()->getLocale() === 'ar' ? 'Switch to English' : 'التحويل للعربية' }}"
+                   class="px-3 py-2 rounded-xl flex items-center gap-1.5 text-xs font-bold text-slate-700 dark:text-slate-200 bg-slate-100 hover:bg-slate-200 dark:bg-slate-900 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 transition">
+                    <i class="fa-solid fa-globe text-blue-500"></i>
+                    <span>{{ app()->getLocale() === 'ar' ? 'English' : 'عربي' }}</span>
+                </a>
+
                 <!-- Theme Toggle Button -->
                 <button @click="toggleTheme()" type="button" aria-label="Toggle theme" title="Toggle Light / Dark mode"
                         class="w-10 h-10 rounded-xl flex items-center justify-center text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white bg-slate-100 hover:bg-slate-200 dark:bg-slate-900 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 transition">
@@ -99,12 +107,17 @@
                 </button>
 
                 <a href="#contact" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold tracking-wide uppercase shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition">
-                    Get in Touch
+                    {{ __('Get in Touch') }}
                 </a>
             </div>
 
-            <!-- Mobile Actions (Toggle + Hamburger) -->
+            <!-- Mobile Actions (Locale + Theme + Hamburger) -->
             <div class="flex md:hidden items-center gap-2">
+                <a href="{{ route('locale.switch', app()->getLocale() === 'ar' ? 'en' : 'ar') }}"
+                   class="px-2 py-1.5 rounded-lg flex items-center gap-1 text-[11px] font-bold text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                    <i class="fa-solid fa-globe text-blue-500"></i>
+                    <span>{{ app()->getLocale() === 'ar' ? 'EN' : 'عربي' }}</span>
+                </a>
                 <button @click="toggleTheme()" type="button" aria-label="Toggle theme"
                         class="w-9 h-9 rounded-lg flex items-center justify-center text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
                     <i class="fa-solid fa-sun text-amber-500 text-sm" x-show="!darkMode"></i>
@@ -119,13 +132,13 @@
 
         <!-- Mobile Drawer -->
         <div x-show="mobileMenu" x-cloak class="md:hidden border-t border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-950/95 px-6 py-4 space-y-3">
-            <a href="#hero" @click="mobileMenu = false" class="block py-2 text-sm font-semibold text-slate-700 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400">Home</a>
-            <a href="#video-showcase" @click="mobileMenu = false" class="block py-2 text-sm font-semibold text-slate-700 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400">Showcase</a>
-            <a href="#about" @click="mobileMenu = false" class="block py-2 text-sm font-semibold text-slate-700 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400">About</a>
-            <a href="#skills" @click="mobileMenu = false" class="block py-2 text-sm font-semibold text-slate-700 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400">Skills</a>
-            <a href="#work-process" @click="mobileMenu = false" class="block py-2 text-sm font-semibold text-slate-700 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400">Work Process</a>
-            <a href="#projects" @click="mobileMenu = false" class="block py-2 text-sm font-semibold text-slate-700 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400">Projects</a>
-            <a href="#contact" @click="mobileMenu = false" class="block py-2 text-sm font-semibold text-slate-700 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400">Contact</a>
+            <a href="#hero" @click="mobileMenu = false" class="block py-2 text-sm font-semibold text-slate-700 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400">{{ __('Home') }}</a>
+            <a href="#video-showcase" @click="mobileMenu = false" class="block py-2 text-sm font-semibold text-slate-700 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400">{{ __('Showcase') }}</a>
+            <a href="#about" @click="mobileMenu = false" class="block py-2 text-sm font-semibold text-slate-700 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400">{{ __('About') }}</a>
+            <a href="#skills" @click="mobileMenu = false" class="block py-2 text-sm font-semibold text-slate-700 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400">{{ __('Skills') }}</a>
+            <a href="#work-process" @click="mobileMenu = false" class="block py-2 text-sm font-semibold text-slate-700 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400">{{ __('Work Process') }}</a>
+            <a href="#projects" @click="mobileMenu = false" class="block py-2 text-sm font-semibold text-slate-700 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400">{{ __('Projects') }}</a>
+            <a href="#contact" @click="mobileMenu = false" class="block py-2 text-sm font-semibold text-slate-700 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400">{{ __('Contact') }}</a>
         </div>
     </header>
 
@@ -151,8 +164,8 @@
                     <a href="tel:{{ $profile->phone }}" class="hover:text-cyan-500 dark:hover:text-cyan-400 transition" title="Call {{ $profile->phone }}"><i class="fa-solid fa-phone"></i></a>
                 @endif
             </div>
-            <p>© {{ $settings['copyright_year'] ?? date('Y') }} {{ $profile?->full_name ?? 'Ahmed Adel' }}. All rights reserved.</p>
-            <p><a href="{{ route('admin.login') }}" class="hover:text-slate-700 dark:hover:text-slate-400 transition">Admin Login</a></p>
+            <p>© {{ $settings['copyright_year'] ?? date('Y') }} {{ $profile?->full_name ?? 'Ahmed Adel' }}. {{ __('All rights reserved.') }}</p>
+            <p><a href="{{ route('admin.login') }}" class="hover:text-slate-700 dark:hover:text-slate-400 transition">{{ __('Admin Login') }}</a></p>
         </div>
     </footer>
 </body>

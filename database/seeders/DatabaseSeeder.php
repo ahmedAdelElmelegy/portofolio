@@ -41,7 +41,7 @@ class DatabaseSeeder extends Seeder
             'phone' => '01069371116',
             'location' => 'Shebin El-Kom, Menoufia, Egypt',
             'avatar' => 'avatars/avatar.png',
-            'cv_file' => null,
+            'cv_file' => 'https://drive.google.com/drive/u/0/mobile/folders/1Du__WLyTM0zhOU2ZfzEAYIz5cjqcjS0Q?hl=ar&sort=13&direction=a',
             'github_url' => 'https://github.com/ahmedAdelElmelegy',
             'linkedin_url' => 'https://www.linkedin.com/in/ahmed-adel-110467373',
             'twitter_url' => null,

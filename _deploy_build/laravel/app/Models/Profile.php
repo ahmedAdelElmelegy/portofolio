@@ -45,8 +45,14 @@ class Profile extends Model
 
     public function getCvUrlAttribute(): ?string
     {
-        return $this->cv_file
-            ? Storage::disk('public')->url($this->cv_file)
-            : null;
+        if (!$this->cv_file) {
+            return 'https://drive.google.com/drive/u/0/mobile/folders/1Du__WLyTM0zhOU2ZfzEAYIz5cjqcjS0Q?hl=ar&sort=13&direction=a';
+        }
+
+        if (str_starts_with($this->cv_file, 'http://') || str_starts_with($this->cv_file, 'https://')) {
+            return $this->cv_file;
+        }
+
+        return Storage::disk('public')->url($this->cv_file);
     }
 }
