@@ -36,7 +36,9 @@
                         accentDark: '#D97706',
                     },
                     fontFamily: {
+                        sans: [{!! app()->getLocale() === 'ar' ? "'Cairo', 'Urbanist', 'sans-serif'" : "'Urbanist', 'Cairo', 'sans-serif'" !!}],
                         urbanist: ['Urbanist', 'sans-serif'],
+                        cairo: ['Cairo', 'sans-serif'],
                     }
                 }
             }
@@ -46,12 +48,17 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <!-- Google Fonts: Urbanist -->
+    <!-- Google Fonts: Cairo & Urbanist -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Urbanist:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Urbanist:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
     <style>
-        body { font-family: {{ app()->getLocale() === 'ar' ? "'Cairo', sans-serif" : "'Urbanist', sans-serif" }}; }
+        html, body, input, textarea, select, button {
+            font-family: {{ app()->getLocale() === 'ar' ? "'Cairo', 'Urbanist', sans-serif" : "'Urbanist', 'Cairo', sans-serif" }};
+        }
+        [dir="rtl"], [lang="ar"], .font-cairo {
+            font-family: 'Cairo', sans-serif !important;
+        }
         [x-cloak] { display: none !important; }
         @if(app()->getLocale() === 'ar')
             h1, h2, h3, h4 { line-height: 1.35 !important; }
@@ -94,6 +101,9 @@
 <body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 antialiased selection:bg-blue-600 selection:text-white transition-colors duration-200"
       x-data="{ 
           mobileMenu: false, 
+          scrolled: window.scrollY > 20,
+          activeSection: '{{ request()->routeIs('projects.*') ? 'projects' : 'hero' }}',
+          clickLockUntil: 0,
           darkMode: document.documentElement.classList.contains('dark'),
           toggleTheme() {
               this.darkMode = !this.darkMode;
@@ -104,17 +114,54 @@
                   document.documentElement.classList.remove('dark');
                   localStorage.theme = 'light';
               }
+          },
+          selectSection(id) {
+              this.activeSection = id;
+              this.clickLockUntil = Date.now() + 900;
+              this.mobileMenu = false;
+          },
+          updateScrollState() {
+              this.scrolled = window.scrollY > 20;
+              if (Date.now() < this.clickLockUntil) return;
+              const ids = ['hero', 'video-showcase', 'about', 'skills', 'work-process', 'projects', 'contact'];
+              const scrollPos = window.scrollY + 180;
+              let current = null;
+              for (const id of ids) {
+                  const el = document.getElementById(id);
+                  if (el && el.offsetTop <= scrollPos) {
+                      current = id;
+                  }
+              }
+              if ((window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight - 40 && document.getElementById('contact')) {
+                  current = 'contact';
+              }
+              if (current) this.activeSection = current;
           }
-      }">
+      }"
+      @scroll.window.passive="updateScrollState()">
 
     <!-- Top Reading / Scroll Progress Bar -->
     <div id="scroll-progress-bar" class="fixed top-0 inset-x-0 h-[2.5px] bg-gradient-to-r from-blue-600 via-cyan-400 to-amber-500 z-[100] transition-all duration-75 pointer-events-none" style="width: 0%"></div>
 
+    @php
+        $isHome = request()->routeIs('home');
+        $navItems = [
+            ['id' => 'hero', 'label' => __('Home'), 'icon' => 'fa-solid fa-house'],
+            ['id' => 'video-showcase', 'label' => __('Showcase'), 'icon' => 'fa-solid fa-circle-play'],
+            ['id' => 'about', 'label' => __('About'), 'icon' => 'fa-solid fa-user'],
+            ['id' => 'skills', 'label' => __('Skills'), 'icon' => 'fa-solid fa-bolt'],
+            ['id' => 'work-process', 'label' => __('Process'), 'icon' => 'fa-solid fa-diagram-project'],
+            ['id' => 'projects', 'label' => __('Projects'), 'icon' => 'fa-solid fa-folder-open'],
+            ['id' => 'contact', 'label' => __('Contact'), 'icon' => 'fa-solid fa-envelope'],
+        ];
+    @endphp
+
     <!-- Sticky Navigation Bar -->
-    <header class="sticky top-0 z-50 bg-white/85 dark:bg-slate-950/85 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800/80 transition">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+    <header :class="scrolled ? 'bg-white/95 dark:bg-slate-950/95 shadow-lg shadow-slate-900/5 dark:shadow-black/30 border-slate-200/90 dark:border-slate-800/90' : 'bg-white/75 dark:bg-slate-950/75 border-slate-200/50 dark:border-slate-800/50'"
+            class="sticky top-0 z-50 backdrop-blur-xl border-b transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between gap-4">
             <!-- Logo with Cover / Profile Avatar Icon -->
-            <a href="{{ route('home') }}" class="flex items-center gap-3 group">
+            <a href="{{ route('home') }}" @click="selectSection('hero')" class="flex items-center gap-3 group shrink-0">
                 <div class="w-11 h-11 rounded-2xl overflow-hidden shadow-lg shadow-blue-500/25 group-hover:scale-105 transition border-2 border-blue-500/30 p-0.5 bg-gradient-to-tr from-blue-600 to-cyan-400 shrink-0">
                     @if($profile && $profile->avatar_url)
                         <img src="{{ $profile->avatar_url }}" alt="{{ $profile->full_name }}" class="w-full h-full object-cover rounded-[13px]">
@@ -125,48 +172,57 @@
                     @endif
                 </div>
                 <div class="leading-tight">
-                    <span class="text-lg font-black text-slate-900 dark:text-white tracking-wide block">{{ $profile?->full_name ?? 'Ahmed Adel' }}</span>
+                    <span class="text-base sm:text-lg font-black text-slate-900 dark:text-white tracking-wide block">{{ $profile?->full_name ?? 'Ahmed Adel' }}</span>
                     <span class="text-[11px] font-semibold text-blue-600 dark:text-blue-400">{{ $profile?->role ?? 'Flutter Developer' }}</span>
                 </div>
             </a>
 
-            <!-- Desktop Nav Items -->
-            <nav class="hidden md:flex items-center gap-8 text-sm font-semibold">
-                <a href="#hero" class="text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400 transition">{{ __('Home') }}</a>
-                <a href="#video-showcase" class="text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400 transition">{{ __('Showcase') }}</a>
-                <a href="#about" class="text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400 transition">{{ __('About') }}</a>
-                <a href="#skills" class="text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400 transition">{{ __('Skills') }}</a>
-                <a href="#work-process" class="text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400 transition">{{ __('Process') }}</a>
-                <a href="#projects" class="text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400 transition">{{ __('Projects') }}</a>
-                <a href="#contact" class="text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400 transition">{{ __('Contact') }}</a>
+            <!-- Desktop Web Navigation Links (Typography-first, Active Underline Indicator) -->
+            <nav class="hidden lg:flex items-center gap-1 xl:gap-2">
+                @foreach($navItems as $item)
+                    <a href="{{ $isHome ? '#' . $item['id'] : route('home') . '#' . $item['id'] }}"
+                       @click="selectSection('{{ $item['id'] }}')"
+                       :class="activeSection === '{{ $item['id'] }}'
+                           ? 'text-blue-600 dark:text-blue-400 bg-blue-500/10 dark:bg-blue-500/15'
+                           : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/70 dark:hover:bg-slate-900/70'"
+                       class="relative px-3.5 py-2 rounded-lg text-sm font-semibold transition-all duration-200 whitespace-nowrap">
+                        <span>{{ $item['label'] }}</span>
+                        <span x-show="activeSection === '{{ $item['id'] }}'"
+                              x-transition:enter="transition ease-out duration-200"
+                              x-transition:enter-start="opacity-0 scale-x-0"
+                              x-transition:enter-end="opacity-100 scale-x-100"
+                              class="absolute bottom-0.5 inset-x-3 h-[2px] rounded-full bg-blue-600 dark:bg-blue-400"></span>
+                    </a>
+                @endforeach
             </nav>
 
             <!-- Language Switcher, Theme Toggle & CTA -->
-            <div class="hidden md:flex items-center gap-3">
+            <div class="hidden lg:flex items-center gap-2.5 shrink-0">
                 <!-- Language Switcher -->
                 <a href="{{ route('locale.switch', app()->getLocale() === 'ar' ? 'en' : 'ar') }}"
                    title="{{ app()->getLocale() === 'ar' ? 'Switch to English' : 'التحويل للعربية' }}"
-                   class="px-3 py-2 rounded-xl flex items-center gap-1.5 text-xs font-bold text-slate-700 dark:text-slate-200 bg-slate-100 hover:bg-slate-200 dark:bg-slate-900 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 transition">
+                   class="px-3 py-2 rounded-lg flex items-center gap-1.5 text-xs font-bold text-slate-700 dark:text-slate-200 bg-slate-100/80 hover:bg-slate-200/80 dark:bg-slate-900/80 dark:hover:bg-slate-800 border border-slate-200/80 dark:border-slate-800 transition">
                     <i class="fa-solid fa-globe text-blue-500"></i>
                     <span>{{ app()->getLocale() === 'ar' ? 'English' : 'عربي' }}</span>
                 </a>
 
                 <!-- Theme Toggle Button -->
                 <button @click="toggleTheme()" type="button" aria-label="Toggle theme" title="Toggle Light / Dark mode"
-                        class="w-10 h-10 rounded-xl flex items-center justify-center text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white bg-slate-100 hover:bg-slate-200 dark:bg-slate-900 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 transition">
-                    <i class="fa-solid fa-sun text-amber-500 text-base" x-show="!darkMode"></i>
-                    <i class="fa-solid fa-moon text-blue-400 text-base" x-show="darkMode" x-cloak></i>
+                        class="w-9 h-9 rounded-lg flex items-center justify-center text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white bg-slate-100/80 hover:bg-slate-200/80 dark:bg-slate-900/80 dark:hover:bg-slate-800 border border-slate-200/80 dark:border-slate-800 transition">
+                    <i class="fa-solid fa-sun text-amber-500 text-sm" x-show="!darkMode"></i>
+                    <i class="fa-solid fa-moon text-blue-400 text-sm" x-show="darkMode" x-cloak></i>
                 </button>
 
-                <a href="#contact" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold tracking-wide uppercase shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition">
+                <a href="{{ $isHome ? '#contact' : route('home') . '#contact' }}" @click="selectSection('contact')"
+                   class="px-5 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold tracking-wide shadow-md shadow-blue-500/20 hover:shadow-blue-500/35 transition">
                     {{ __('Get in Touch') }}
                 </a>
             </div>
 
             <!-- Mobile Actions (Locale + Theme + Hamburger) -->
-            <div class="flex md:hidden items-center gap-2">
+            <div class="flex lg:hidden items-center gap-2">
                 <a href="{{ route('locale.switch', app()->getLocale() === 'ar' ? 'en' : 'ar') }}"
-                   class="px-2 py-1.5 rounded-lg flex items-center gap-1 text-[11px] font-bold text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                   class="px-2.5 py-1.5 rounded-lg flex items-center gap-1 text-[11px] font-bold text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
                     <i class="fa-solid fa-globe text-blue-500"></i>
                     <span>{{ app()->getLocale() === 'ar' ? 'EN' : 'عربي' }}</span>
                 </a>
@@ -175,22 +231,34 @@
                     <i class="fa-solid fa-sun text-amber-500 text-sm" x-show="!darkMode"></i>
                     <i class="fa-solid fa-moon text-blue-400 text-sm" x-show="darkMode" x-cloak></i>
                 </button>
-                <button @click="mobileMenu = !mobileMenu" class="text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white p-2">
-                    <i class="fa-solid fa-bars text-xl" x-show="!mobileMenu"></i>
-                    <i class="fa-solid fa-xmark text-xl" x-show="mobileMenu" x-cloak></i>
+                <button @click="mobileMenu = !mobileMenu" aria-label="Toggle menu"
+                        class="w-9 h-9 rounded-lg flex items-center justify-center text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 transition">
+                    <i class="fa-solid fa-bars text-base" x-show="!mobileMenu"></i>
+                    <i class="fa-solid fa-xmark text-base" x-show="mobileMenu" x-cloak></i>
                 </button>
             </div>
         </div>
 
         <!-- Mobile Drawer -->
-        <div x-show="mobileMenu" x-cloak class="md:hidden border-t border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-950/95 px-6 py-4 space-y-3">
-            <a href="#hero" @click="mobileMenu = false" class="block py-2 text-sm font-semibold text-slate-700 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400">{{ __('Home') }}</a>
-            <a href="#video-showcase" @click="mobileMenu = false" class="block py-2 text-sm font-semibold text-slate-700 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400">{{ __('Showcase') }}</a>
-            <a href="#about" @click="mobileMenu = false" class="block py-2 text-sm font-semibold text-slate-700 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400">{{ __('About') }}</a>
-            <a href="#skills" @click="mobileMenu = false" class="block py-2 text-sm font-semibold text-slate-700 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400">{{ __('Skills') }}</a>
-            <a href="#work-process" @click="mobileMenu = false" class="block py-2 text-sm font-semibold text-slate-700 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400">{{ __('Work Process') }}</a>
-            <a href="#projects" @click="mobileMenu = false" class="block py-2 text-sm font-semibold text-slate-700 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400">{{ __('Projects') }}</a>
-            <a href="#contact" @click="mobileMenu = false" class="block py-2 text-sm font-semibold text-slate-700 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400">{{ __('Contact') }}</a>
+        <div x-show="mobileMenu" x-cloak
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0 -translate-y-2"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             x-transition:leave="transition ease-in duration-150"
+             x-transition:leave-start="opacity-100 translate-y-0"
+             x-transition:leave-end="opacity-0 -translate-y-2"
+             class="lg:hidden border-t border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-950/95 backdrop-blur-xl px-4 py-4 space-y-1.5 shadow-xl">
+            @foreach($navItems as $item)
+                <a href="{{ $isHome ? '#' . $item['id'] : route('home') . '#' . $item['id'] }}"
+                   @click="selectSection('{{ $item['id'] }}')"
+                   :class="activeSection === '{{ $item['id'] }}'
+                       ? 'bg-blue-50 dark:bg-blue-600/15 text-blue-600 dark:text-blue-400 border-s-4 border-blue-600 dark:border-blue-400 ps-3'
+                       : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-900/70 ps-4'"
+                   class="flex items-center gap-3 py-2.5 pe-4 rounded-xl text-sm font-bold transition-all">
+                    <i class="{{ $item['icon'] }} w-4 text-center text-xs"></i>
+                    <span>{{ $item['label'] }}</span>
+                </a>
+            @endforeach
         </div>
     </header>
 

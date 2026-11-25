@@ -1,17 +1,17 @@
 @extends('layouts.admin')
 
-@section('title', 'Work Process (Methodology)')
+@section('title', __('Work Process (Methodology)'))
 
 @section('content')
 <div class="space-y-6">
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-            <h1 class="text-2xl font-extrabold text-slate-900 dark:text-white">Work Process Methodology</h1>
-            <p class="text-slate-400 text-sm mt-1">The 6 developmental steps featured in your portfolio to showcase your professional workflow.</p>
+            <h1 class="text-2xl font-extrabold text-slate-900 dark:text-white">{{ __('Work Process Methodology') }}</h1>
+            <p class="text-slate-400 text-sm mt-1">{{ __('The 6 developmental steps featured in your portfolio to showcase your professional workflow.') }}</p>
         </div>
-        <a href="{{ route('admin.work-processes.create') }}" class="px-4 py-2.5 bg-blue-600 hover:bg-blue-500 text-slate-900 dark:text-white font-bold text-sm rounded-xl transition shadow-lg shadow-blue-500/25 flex items-center gap-2 self-start">
+        <a href="{{ route('admin.work-processes.create') }}" class="px-4 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm rounded-xl transition shadow-lg shadow-blue-500/25 flex items-center gap-2 self-start">
             <i class="fa-solid fa-plus"></i>
-            <span>Add Step</span>
+            <span>{{ __('Add Step') }}</span>
         </a>
     </div>
 
@@ -24,13 +24,13 @@
                             {{ $process->sort_order }}
                         </span>
                         <div class="flex items-center gap-1 opacity-70 group-hover:opacity-100 transition">
-                            <a href="{{ route('admin.work-processes.edit', $process) }}" class="p-1.5 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white rounded hover:bg-slate-100 dark:hover:bg-slate-800">
+                            <a href="{{ route('admin.work-processes.edit', $process) }}" title="{{ __('Edit') }}" class="p-1.5 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white rounded hover:bg-slate-100 dark:hover:bg-slate-800">
                                 <i class="fa-solid fa-pen text-xs"></i>
                             </a>
                             <form id="delete-proc-{{ $process->id }}" action="{{ route('admin.work-processes.destroy', $process) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button type="button" @click="$dispatch('confirm-action', { formId: 'delete-proc-{{ $process->id }}', title: @js(__('Delete Process Step?')), message: @js(__('Are you sure you want to delete this step?')) })" class="p-1.5 text-slate-600 dark:text-slate-400 hover:text-red-400 rounded hover:bg-slate-100 dark:hover:bg-slate-800">
+                                <button type="button" @click="$dispatch('confirm-action', { formId: 'delete-proc-{{ $process->id }}', title: @js(__('Delete Process Step?')), message: @js(__('Are you sure you want to delete this step?')) })" title="{{ __('Delete') }}" class="p-1.5 text-slate-600 dark:text-slate-400 hover:text-red-400 rounded hover:bg-slate-100 dark:hover:bg-slate-800">
                                     <i class="fa-solid fa-trash text-xs"></i>
                                 </button>
                             </form>
@@ -41,11 +41,10 @@
                 </div>
 
                 <div class="mt-4 pt-3 border-t border-slate-200/80 dark:border-slate-800/60 flex items-center justify-between text-xs text-slate-500">
-                    <span>Icon: <code class="text-blue-400">{{ $process->icon ?? 'default' }}</code></span>
+                    <span>{{ __('Icon:') }} <code class="text-blue-400">{{ $process->icon ?? 'default' }}</code></span>
                 </div>
             </div>
         @endforeach
     </div>
 </div>
 @endsection
-

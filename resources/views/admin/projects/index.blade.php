@@ -1,17 +1,17 @@
 @extends('layouts.admin')
 
-@section('title', 'Projects')
+@section('title', __('Projects'))
 
 @section('content')
 <div class="space-y-6">
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-            <h1 class="text-2xl font-extrabold text-slate-900 dark:text-white">Project Showcase Management</h1>
-            <p class="text-slate-400 text-sm mt-1">Manage all projects, technology stacks, feature lists, and screenshot galleries.</p>
+            <h1 class="text-2xl font-extrabold text-slate-900 dark:text-white">{{ __('Project Showcase Management') }}</h1>
+            <p class="text-slate-400 text-sm mt-1">{{ __('Manage all projects, technology stacks, feature lists, and screenshot galleries.') }}</p>
         </div>
-        <a href="{{ route('admin.projects.create') }}" class="px-4 py-2.5 bg-blue-600 hover:bg-blue-500 text-slate-900 dark:text-white font-bold text-sm rounded-xl transition shadow-lg shadow-blue-500/25 flex items-center gap-2 self-start">
+        <a href="{{ route('admin.projects.create') }}" class="px-4 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm rounded-xl transition shadow-lg shadow-blue-500/25 flex items-center gap-2 self-start">
             <i class="fa-solid fa-plus"></i>
-            <span>Add New Project</span>
+            <span>{{ __('Add New Project') }}</span>
         </a>
     </div>
 
@@ -24,28 +24,28 @@
                             <div class="flex items-center gap-2">
                                 <h3 class="text-lg font-bold text-slate-900 dark:text-white">{{ $project->name }}</h3>
                                 @if($project->is_featured)
-                                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-400">Featured</span>
+                                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-400">{{ __('Featured') }}</span>
                                 @endif
                                 @if($project->published_at)
-                                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-400">Published</span>
+                                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-400">{{ __('Published') }}</span>
                                 @else
-                                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-800 text-slate-600 dark:text-slate-400">Draft</span>
+                                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-800 text-slate-600 dark:text-slate-400">{{ __('Draft') }}</span>
                                 @endif
                             </div>
-                            <p class="text-xs text-blue-400 font-mono mt-0.5">/projects/{{ $project->slug }}</p>
+                            <p class="text-xs text-blue-400 font-mono mt-0.5" dir="ltr">/projects/{{ $project->slug }}</p>
                         </div>
 
                         <div class="flex items-center gap-1">
-                            <a href="{{ route('admin.projects.show', $project) }}" title="View details" class="p-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-slate-900">
+                            <a href="{{ route('admin.projects.show', $project) }}" title="{{ __('View details') }}" class="p-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-slate-900">
                                 <i class="fa-solid fa-eye text-sm"></i>
                             </a>
-                            <a href="{{ route('admin.projects.edit', $project) }}" title="Edit" class="p-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-slate-900">
+                            <a href="{{ route('admin.projects.edit', $project) }}" title="{{ __('Edit') }}" class="p-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-slate-900">
                                 <i class="fa-solid fa-pen text-sm"></i>
                             </a>
                             <form id="delete-proj-{{ $project->id }}" action="{{ route('admin.projects.destroy', $project) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button type="button" @click="$dispatch('confirm-action', { formId: 'delete-proj-{{ $project->id }}', title: @js(__('Delete Project?')), message: @js(__('Are you sure you want to delete this project and all its screenshots?')) })" title="Delete" class="p-2 text-slate-600 dark:text-slate-400 hover:text-red-400 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-900">
+                                <button type="button" @click="$dispatch('confirm-action', { formId: 'delete-proj-{{ $project->id }}', title: @js(__('Delete Project?')), message: @js(__('Are you sure you want to delete this project and all its screenshots?')) })" title="{{ __('Delete') }}" class="p-2 text-slate-600 dark:text-slate-400 hover:text-red-400 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-900">
                                     <i class="fa-solid fa-trash text-sm"></i>
                                 </button>
                             </form>
@@ -57,9 +57,9 @@
                     </p>
 
                     <div class="flex items-center gap-4 text-xs text-slate-500 font-medium pt-3 border-t border-slate-200 dark:border-slate-800">
-                        <span><i class="fa-solid fa-microchip mr-1.5 text-slate-600 dark:text-slate-400"></i>{{ $project->technologies_count }} Tech tags</span>
-                        <span><i class="fa-solid fa-list-check mr-1.5 text-slate-600 dark:text-slate-400"></i>{{ $project->features_count }} Features</span>
-                        <span><i class="fa-regular fa-images mr-1.5 text-slate-600 dark:text-slate-400"></i>{{ $project->images_count }} Screenshots</span>
+                        <span><i class="fa-solid fa-microchip me-1.5 text-slate-600 dark:text-slate-400"></i>{{ $project->technologies_count }} {{ __('Tech tags') }}</span>
+                        <span><i class="fa-solid fa-list-check me-1.5 text-slate-600 dark:text-slate-400"></i>{{ $project->features_count }} {{ __('Features') }}</span>
+                        <span><i class="fa-regular fa-images me-1.5 text-slate-600 dark:text-slate-400"></i>{{ $project->images_count }} {{ __('Screenshots') }}</span>
                     </div>
                 </div>
 
@@ -68,30 +68,31 @@
                         @if($project->github_url)
                             <a href="{{ $project->github_url }}" target="_blank" class="text-slate-400 hover:text-slate-900 dark:hover:text-white flex items-center gap-1" title="GitHub">
                                 <i class="fa-brands fa-github"></i>
-                                <span>Code</span>
+                                <span>{{ __('Code') }}</span>
                             </a>
                         @endif
                         @if($project->android_url)
-                            <a href="{{ $project->android_url }}" target="_blank" class="text-emerald-500 hover:text-emerald-400 flex items-center gap-1" title="Android App">
+                            <a href="{{ $project->android_url }}" target="_blank" class="text-emerald-500 hover:text-emerald-400 flex items-center gap-1" title="Android">
                                 <i class="fa-brands fa-android"></i>
                                 <span>Android</span>
                             </a>
                         @endif
                         @if($project->ios_url)
-                            <a href="{{ $project->ios_url }}" target="_blank" class="text-sky-500 hover:text-sky-400 flex items-center gap-1" title="iOS App">
+                            <a href="{{ $project->ios_url }}" target="_blank" class="text-sky-500 hover:text-sky-400 flex items-center gap-1" title="iOS">
                                 <i class="fa-brands fa-apple"></i>
                                 <span>iOS</span>
                             </a>
                         @endif
                         @if($project->app_url)
-                            <a href="{{ $project->app_url }}" target="_blank" class="text-slate-400 hover:text-blue-400 flex items-center gap-1" title="Live Demo / Web">
+                            <a href="{{ $project->app_url }}" target="_blank" class="text-slate-400 hover:text-blue-400 flex items-center gap-1" title="{{ __('Live Demo') }}">
                                 <i class="fa-solid fa-link"></i>
-                                <span>Live</span>
+                                <span>{{ __('Live') }}</span>
                             </a>
                         @endif
                     </div>
-                    <a href="{{ route('projects.show', $project->slug) }}" target="_blank" class="text-blue-400 hover:underline font-semibold">
-                        Preview public page →
+                    <a href="{{ route('projects.show', $project->slug) }}" target="_blank" class="text-blue-400 hover:underline font-semibold inline-flex items-center gap-1">
+                        <span>{{ __('Preview public page') }}</span>
+                        <i class="fa-solid fa-arrow-right rtl:rotate-180 text-[10px]"></i>
                     </a>
                 </div>
             </div>
@@ -99,4 +100,3 @@
     </div>
 </div>
 @endsection
-

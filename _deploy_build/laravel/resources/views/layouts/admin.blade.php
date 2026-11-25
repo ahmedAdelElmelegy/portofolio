@@ -33,7 +33,9 @@
                         primary: '#3B82F6',
                     },
                     fontFamily: {
+                        sans: [{!! app()->getLocale() === 'ar' ? "'Cairo', 'Urbanist', 'sans-serif'" : "'Urbanist', 'Cairo', 'sans-serif'" !!}],
                         urbanist: ['Urbanist', 'sans-serif'],
+                        cairo: ['Cairo', 'sans-serif'],
                     }
                 }
             }
@@ -44,10 +46,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Urbanist:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Urbanist:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: {{ app()->getLocale() === 'ar' ? "'Cairo', sans-serif" : "'Urbanist', sans-serif" }}; }
+        html, body, input, textarea, select, button {
+            font-family: {{ app()->getLocale() === 'ar' ? "'Cairo', 'Urbanist', sans-serif" : "'Urbanist', 'Cairo', sans-serif" }};
+        }
+        [dir="rtl"], [lang="ar"], .font-cairo {
+            font-family: 'Cairo', sans-serif !important;
+        }
         [x-cloak] { display: none !important; }
+        @if(app()->getLocale() === 'ar')
+            h1, h2, h3, h4 { line-height: 1.35 !important; }
+        @endif
     </style>
 </head>
 <body class="h-full antialiased bg-slate-100 text-slate-800 dark:bg-slate-900 dark:text-slate-100 transition-colors duration-200"
@@ -201,7 +211,7 @@
                     <div class="w-8 h-8 rounded-xl overflow-hidden border border-blue-500/30 shadow-sm shrink-0">
                         <img src="{{ $appIconUrl }}" alt="Avatar" class="w-full h-full object-cover">
                     </div>
-                    <span class="font-bold text-slate-900 dark:text-white text-sm">Portfolio Admin</span>
+                    <span class="font-bold text-slate-900 dark:text-white text-sm">{{ __('Portfolio Admin') }}</span>
                 </div>
                 <div class="flex items-center gap-2">
                     <a href="{{ route('locale.switch', app()->getLocale() === 'ar' ? 'en' : 'ar') }}"
@@ -219,7 +229,7 @@
             </div>
 
             <!-- Main container -->
-            <main class="flex-1 p-6 md:p-8 max-w-7xl w-full mx-auto">
+            <main class="flex-1 p-6 md:p-8 w-full max-w-full">
                 <!-- Flash messages -->
                 @if(session('success'))
                     <div x-data="{ show: true }" x-show="show" class="mb-6 flex items-center justify-between bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 px-4 py-3 rounded-xl shadow-sm">
@@ -235,7 +245,7 @@
 
                 @if(isset($errors) && $errors->any())
                     <div class="mb-6 bg-red-500/10 border border-red-500/30 text-red-600 dark:text-red-400 px-4 py-3 rounded-xl shadow-sm">
-                        <div class="font-semibold text-sm mb-1">Please fix the following errors:</div>
+                        <div class="font-semibold text-sm mb-1">{{ __('Please fix the following errors:') }}</div>
                         <ul class="list-disc list-inside text-xs space-y-0.5">
                             @foreach($errors->all() as $error)
                                 <li>{{ $error }}</li>

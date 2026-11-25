@@ -1,13 +1,13 @@
 @extends('layouts.admin')
 
-@section('title', 'Contact Messages')
+@section('title', __('Contact Messages'))
 
 @section('content')
 <div class="space-y-6">
     <div class="flex items-center justify-between">
         <div>
-            <h1 class="text-2xl font-extrabold text-slate-900 dark:text-white">Contact Messages Inbox</h1>
-            <p class="text-slate-400 text-sm mt-1">Messages sent through your public portfolio contact form or Flutter app API.</p>
+            <h1 class="text-2xl font-extrabold text-slate-900 dark:text-white">{{ __('Contact Messages Inbox') }}</h1>
+            <p class="text-slate-400 text-sm mt-1">{{ __('Messages sent through your public portfolio contact form or Flutter app API.') }}</p>
         </div>
     </div>
 
@@ -15,8 +15,8 @@
         @if($messages->isEmpty())
             <div class="text-center py-16 text-slate-500">
                 <i class="fa-regular fa-envelope-open text-4xl mb-3 block"></i>
-                <p class="text-base font-semibold text-slate-600 dark:text-slate-400">Inbox is empty</p>
-                <p class="text-xs text-slate-500 mt-1">New submissions will show up here.</p>
+                <p class="text-base font-semibold text-slate-600 dark:text-slate-400">{{ __('Inbox is empty') }}</p>
+                <p class="text-xs text-slate-500 mt-1">{{ __('New submissions will show up here.') }}</p>
             </div>
         @else
             <div class="divide-y divide-slate-800">
@@ -27,9 +27,9 @@
                             <div class="min-w-0">
                                 <div class="flex items-center gap-2">
                                     <span class="font-bold text-sm text-slate-900 dark:text-white truncate">{{ $msg->name }}</span>
-                                    <span class="text-xs text-slate-500 font-normal">({{ $msg->email }})</span>
+                                    <span class="text-xs text-slate-500 font-normal" dir="ltr">({{ $msg->email }})</span>
                                 </div>
-                                <p class="text-xs font-semibold text-slate-700 dark:text-slate-300 mt-0.5 truncate">{{ $msg->subject ?? 'No Subject' }}</p>
+                                <p class="text-xs font-semibold text-slate-700 dark:text-slate-300 mt-0.5 truncate">{{ $msg->subject ?? __('No Subject') }}</p>
                                 <p class="text-xs text-slate-600 dark:text-slate-400 mt-1 line-clamp-1">{{ $msg->message }}</p>
                             </div>
                         </div>
@@ -37,12 +37,12 @@
                         <div class="flex items-center gap-3 self-end sm:self-center flex-shrink-0">
                             <span class="text-xs text-slate-500 font-mono">{{ $msg->created_at->diffForHumans() }}</span>
                             <a href="{{ route('admin.contact-messages.show', $msg) }}" class="px-3 py-1.5 bg-slate-50 dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-900 dark:text-white rounded-lg transition">
-                                View
+                                {{ __('View') }}
                             </a>
                             <form id="delete-msg-{{ $msg->id }}" action="{{ route('admin.contact-messages.destroy', $msg) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button type="button" @click="$dispatch('confirm-action', { formId: 'delete-msg-{{ $msg->id }}', title: @js(__('Delete Message?')), message: @js(__('Are you sure you want to delete this message?')) })" class="p-1.5 text-slate-500 hover:text-red-400 rounded-lg">
+                                <button type="button" @click="$dispatch('confirm-action', { formId: 'delete-msg-{{ $msg->id }}', title: @js(__('Delete Message?')), message: @js(__('Are you sure you want to delete this message?')) })" title="{{ __('Delete') }}" class="p-1.5 text-slate-500 hover:text-red-400 rounded-lg">
                                     <i class="fa-solid fa-trash text-xs"></i>
                                 </button>
                             </form>
@@ -58,4 +58,3 @@
     </div>
 </div>
 @endsection
-

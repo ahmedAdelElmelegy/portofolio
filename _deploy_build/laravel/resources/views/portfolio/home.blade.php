@@ -410,7 +410,7 @@
                     {{ __('Or Connect Directly Via') }}
                 </p>
                 
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5 sm:gap-4">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-4">
                     @if($profile?->email)
                         <a href="mailto:{{ $profile->email }}" title="{{ $profile->email }}"
                            class="group p-4 rounded-2xl bg-slate-50/80 dark:bg-slate-950/60 hover:bg-white dark:hover:bg-slate-900 border border-slate-200/90 dark:border-slate-800 hover:border-blue-500/50 flex flex-col items-center text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-blue-500/10">
@@ -441,17 +441,6 @@
                             </div>
                             <span class="text-xs font-bold text-slate-800 dark:text-slate-200 group-hover:text-green-600 dark:group-hover:text-green-400 transition">{{ __('WhatsApp') }}</span>
                             <span class="text-[11px] text-slate-600 dark:text-slate-400 font-medium truncate max-w-full mt-0.5">{{ __('Chat Live') }}</span>
-                        </a>
-                    @endif
-
-                    @if($profile?->location)
-                        <a href="https://maps.google.com/?q={{ urlencode($profile->location) }}" target="_blank" title="{{ $profile->location }}"
-                           class="group p-4 rounded-2xl bg-slate-50/80 dark:bg-slate-950/60 hover:bg-white dark:hover:bg-slate-900 border border-slate-200/90 dark:border-slate-800 hover:border-amber-500/50 flex flex-col items-center text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-amber-500/10">
-                            <div class="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-600 dark:text-amber-400 flex items-center justify-center text-xl group-hover:scale-110 group-hover:bg-amber-600 group-hover:text-white transition duration-300 shadow-sm mb-2">
-                                <i class="fa-solid fa-location-dot"></i>
-                            </div>
-                            <span class="text-xs font-bold text-slate-800 dark:text-slate-200 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition">{{ __('Location') }}</span>
-                            <span class="text-[11px] text-slate-600 dark:text-slate-400 font-medium truncate max-w-full mt-0.5">{{ $profile->location }}</span>
                         </a>
                     @endif
                 </div>
